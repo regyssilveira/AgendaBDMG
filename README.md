@@ -55,6 +55,39 @@ O Client Desktop interage exclusivamente com a API:
 
 Para que qualquer pessoa (mesmo sem experiência prévia com Delphi) consiga rodar o sistema completo localmente em poucos minutos, elaboramos este guia passo a passo detalhado:
 
+### Etapa 0: Pré-requisitos e Instalação das Ferramentas (Para Leigos)
+
+Antes de iniciar, você precisará de duas ferramentas essenciais configuradas no seu ambiente Windows. Caso ainda não as possua, siga as instruções abaixo:
+
+#### 1. Docker Desktop (Para rodar o Banco de Dados)
+O Docker permite executar o SQL Server em um ambiente isolado (container) sem a necessidade de instalar o banco de dados pesado diretamente na sua máquina.
+* **Onde baixar:** Acesse o site oficial em [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/) e clique em **Download for Windows**.
+* **Como instalar:**
+  1. Execute o instalador baixado (`Docker Desktop Installer.exe`).
+  2. Mantenha as opções recomendadas marcadas (especialmente a de usar o **WSL 2** se solicitada).
+  3. Prossiga até o fim e, se necessário, reinicie o computador.
+  4. Abra o aplicativo **Docker Desktop** pelo menu Iniciar e aguarde até que a engine esteja iniciada e rodando perfeitamente.
+
+#### 2. Boss (Gerenciador de Dependências do Delphi)
+O Boss atua baixando e gerenciando as bibliotecas de terceiros que o projeto utiliza (como o Horse e o RESTRequest4Delphi), de forma parecida com o `npm` no ecossistema JavaScript ou `NuGet` no C#.
+* **Onde baixar:** Acesse a página oficial de lançamentos no GitHub: [HashLoad/boss/releases](https://github.com/HashLoad/boss/releases).
+* **Como instalar no Windows:**
+  1. Baixe o arquivo `.zip` da versão mais recente para Windows (ex: `boss-windows-x86_64.zip`).
+  2. Crie uma pasta fixa no seu computador para armazenar a ferramenta (por exemplo, `C:\Ferramentas\Boss\`) e extraia o arquivo `boss.exe` dentro dela.
+  3. **Adicione o Boss ao PATH do Windows** para que os terminais consigam reconhecer o comando globalmente:
+     * Pressione a tecla `Windows`, digite **Variáveis de Ambiente** e clique em **Editar as variáveis de ambiente do sistema**.
+     * Clique no botão **Variáveis de Ambiente...** na aba Avançado.
+     * Na lista de *Variáveis do sistema* (ou de usuário), selecione a variável `Path` e clique em **Editar...**.
+     * Clique no botão **Novo**, cole o caminho da pasta criada (ex: `C:\Ferramentas\Boss`) e pressione Enter.
+     * Clique em **OK** em todas as janelas para aplicar.
+  4. Para testar se tudo deu certo, abra um **novo** terminal (PowerShell ou Prompt de Comando) e digite:
+     ```bash
+     boss --version
+     ```
+     Se o terminal retornar o número da versão, o Boss está pronto para uso!
+
+---
+
 ### Etapa 1: Subindo o Banco de Dados (SQL Server)
 O sistema precisa de um banco de dados para salvar as tarefas. A forma mais simples e rápida é usar o Docker já incluso no projeto:
 
