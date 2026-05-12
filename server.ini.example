@@ -1,0 +1,13 @@
+[Database]
+Server=localhost
+Port=1433
+Database=AgendaMontreal
+Username=sa
+Password=SuaSenha123
+Driver=MSSQL
+
+[Server]
+Port=9000
+
+[Security]
+ApiKey=agenda-montreal-dev-key-2026

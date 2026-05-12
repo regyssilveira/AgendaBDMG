@@ -1,0 +1,7 @@
+[Server]
+Host=localhost
+Port=9000
+Protocol=http
+
+[Security]
+ApiKey=agenda-montreal-dev-key-2026

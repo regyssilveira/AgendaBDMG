@@ -1,0 +1,11 @@
+*.exe
+*.dcu
+__history/
+*.ini
+*.local
+*.identcache
+/server/Win32/
+/server/Win64/
+/client/Win32/
+/client/Win64/
+modules/
