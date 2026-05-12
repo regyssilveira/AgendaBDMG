@@ -127,6 +127,28 @@ Com o servidor rodando, você pode testar a API diretamente pelo navegador sem p
 
 ---
 
+### Etapa 6: Rodando os Testes Unitários Automatizados
+O backend possui uma suíte robusta de testes automatizados unitários construída com **DUnitX**, que valida o domínio e a inteligência dos serviços isoladamente (com *Mocks* em memória), sem exigir SGBD ativo.
+
+Como os utilitários da API compartilham conversores com o **GBSwagger**, a pasta de testes conta com seu próprio gerenciador de pacotes para manter a compilação fluida:
+
+1. Abra um terminal dentro da pasta `/tests/`.
+2. Baixe as dependências exigidas pelos utilitários da suíte:
+   ```bash
+   boss install
+   ```
+3. Compile o executável de testes apontando para os códigos-fonte do servidor:
+   ```bash
+   dcc32 -U"..\server\src\model;..\server\src\dto;..\server\src\interfaces;..\server\src\service;..\server\src\utils;..\server\modules\horse\src;..\server\modules\gbswagger\Source\Core;..\server\modules\gbswagger\Source\JSON" -NS"System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Vcl" AgendaBDMG.Tests.dpr
+   ```
+4. Execute o binário gerado:
+   ```bash
+   .\AgendaBDMG.Tests.exe
+   ```
+5. Você acompanhará a auditoria limpa do DUnitX atestando **100% de sucesso** e **0 vazamentos de memória** (*0 bytes leaked*).
+
+---
+
 ## 📡 Referência Rápida dos Endpoints da API
 
 Para integrações externas (como o frontend em Angular ou via Postman), a API responde nos seguintes endereços baseados em `http://localhost:9005/api`:
