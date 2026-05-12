@@ -14,6 +14,8 @@ type
     FRepository: ITarefaRepository;
     function MapToResponseDTO(ATarefa: TTarefa): TTarefaResponseDTO;
     procedure ValidarRegrasBasicas(const ATitulo, ADescricao: string; APrioridade: Integer);
+    function BuscarTarefaExistente(AId: Integer): TTarefa;
+    procedure PreencherDadosTarefa(ATarefa: TTarefa; ADTO: TTarefaCreateDTO);
   public
     constructor Create(ARepository: ITarefaRepository);
     
@@ -52,6 +54,20 @@ begin
     
   if (APrioridade < 1) or (APrioridade > 5) then
     raise EHorseException.New.Error('A prioridade deve estar entre 1 e 5.').Status(THTTPStatus.BadRequest);
+end;
+
+function TTarefaService.BuscarTarefaExistente(AId: Integer): TTarefa;
+begin
+  Result := FRepository.ObterPorId(AId);
+  if not Assigned(Result) then
+    raise EHorseException.New.Error('Tarefa não encontrada').Status(THTTPStatus.NotFound);
+end;
+
+procedure TTarefaService.PreencherDadosTarefa(ATarefa: TTarefa; ADTO: TTarefaCreateDTO);
+begin
+  ATarefa.Titulo := ADTO.Titulo;
+  ATarefa.Descricao := ADTO.Descricao;
+  ATarefa.Prioridade := ADTO.Prioridade;
 end;
 
 function TTarefaService.MapToResponseDTO(ATarefa: TTarefa): TTarefaResponseDTO;
@@ -99,10 +115,7 @@ function TTarefaService.ObterPorId(AId: Integer): TTarefaResponseDTO;
 var
   LTarefa: TTarefa;
 begin
-  LTarefa := FRepository.ObterPorId(AId);
-  if not Assigned(LTarefa) then
-    raise EHorseException.New.Error('Tarefa não encontrada').Status(THTTPStatus.NotFound);
-    
+  LTarefa := BuscarTarefaExistente(AId);
   try
     Result := MapToResponseDTO(LTarefa);
   finally
@@ -118,9 +131,7 @@ begin
 
   LTarefa := TTarefa.Create;
   try
-    LTarefa.Titulo := ADTO.Titulo;
-    LTarefa.Descricao := ADTO.Descricao;
-    LTarefa.Prioridade := ADTO.Prioridade;
+    PreencherDadosTarefa(LTarefa, ADTO);
     // Status e DataCriacao sao preenchidos no Create da Entidade
     
     FRepository.Criar(LTarefa);
@@ -136,14 +147,9 @@ var
 begin
   ValidarRegrasBasicas(ADTO.Titulo, ADTO.Descricao, ADTO.Prioridade);
 
-  LTarefa := FRepository.ObterPorId(AId);
-  if not Assigned(LTarefa) then
-    raise EHorseException.New.Error('Tarefa não encontrada').Status(THTTPStatus.NotFound);
-    
+  LTarefa := BuscarTarefaExistente(AId);
   try
-    LTarefa.Titulo := ADTO.Titulo;
-    LTarefa.Descricao := ADTO.Descricao;
-    LTarefa.Prioridade := ADTO.Prioridade;
+    PreencherDadosTarefa(LTarefa, ADTO);
     // Status não é atualizado aqui!
     
     FRepository.Atualizar(LTarefa);
@@ -165,10 +171,7 @@ begin
       raise EHorseException.New.Error('Status inválido.').Status(THTTPStatus.UnprocessableEntity);
   end;
 
-  LTarefa := FRepository.ObterPorId(AId);
-  if not Assigned(LTarefa) then
-    raise EHorseException.New.Error('Tarefa não encontrada').Status(THTTPStatus.NotFound);
-    
+  LTarefa := BuscarTarefaExistente(AId);
   try
     if not LTarefa.Status.PodeMudarPara(LNovoStatus) then
       raise EHorseException.New.Error(Format('Transição de status inválida: de %s para %s', [LTarefa.Status.ToString, ADTO.Status])).Status(THTTPStatus.UnprocessableEntity);
@@ -192,9 +195,7 @@ procedure TTarefaService.Remover(AId: Integer);
 var
   LTarefa: TTarefa;
 begin
-  LTarefa := FRepository.ObterPorId(AId);
-  if not Assigned(LTarefa) then
-    raise EHorseException.New.Error('Tarefa não encontrada').Status(THTTPStatus.NotFound);
+  LTarefa := BuscarTarefaExistente(AId);
   LTarefa.Free;
   
   FRepository.Remover(AId);
