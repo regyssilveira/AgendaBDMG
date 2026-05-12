@@ -24,7 +24,9 @@ uses
   AgendaBDMG.Tests.Service.Tarefa in 'src\AgendaBDMG.Tests.Service.Tarefa.pas',
   AgendaBDMG.Tests.Utils.Json in 'src\AgendaBDMG.Tests.Utils.Json.pas',
   AgendaBDMG.Tests.Client.Utils in 'src\AgendaBDMG.Tests.Client.Utils.pas',
-  AgendaBDMG.Client.Utils in '..\client\src\utils\AgendaBDMG.Client.Utils.pas';
+  AgendaBDMG.Client.Utils in '..\client\src\utils\AgendaBDMG.Client.Utils.pas',
+  AgendaBDMG.Tests.Client.Config in 'src\AgendaBDMG.Tests.Client.Config.pas',
+  AgendaBDMG.Client.Config in '..\client\src\utils\AgendaBDMG.Client.Config.pas';
 
 var
   runner: ITestRunner;
