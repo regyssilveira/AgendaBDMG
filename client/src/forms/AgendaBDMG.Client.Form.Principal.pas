@@ -1,4 +1,4 @@
-unit AgendaMontreal.Client.Form.Principal;
+﻿unit AgendaBDMG.Client.Form.Principal;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  AgendaMontreal.Client.Service.Tarefa, AgendaMontreal.Client.DTO;
+  AgendaBDMG.Client.Service.Tarefa, AgendaBDMG.Client.DTO;
 
 type
   TfrmPrincipal = class(TForm)
@@ -68,9 +68,9 @@ var
 implementation
 
 uses
-  AgendaMontreal.Client.Utils,
-  AgendaMontreal.Client.Form.Tarefa,
-  AgendaMontreal.Client.Form.Status;
+  AgendaBDMG.Client.Utils,
+  AgendaBDMG.Client.Form.Tarefa,
+  AgendaBDMG.Client.Form.Status;
 
 {$R *.dfm}
 

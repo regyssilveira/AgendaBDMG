@@ -1,4 +1,4 @@
-unit AgendaMontreal.Client.Form.Status;
+﻿unit AgendaBDMG.Client.Form.Status;
 
 interface
 
@@ -35,7 +35,7 @@ var
 implementation
 
 uses
-  AgendaMontreal.Client.Utils;
+  AgendaBDMG.Client.Utils;
 
 {$R *.dfm}
 

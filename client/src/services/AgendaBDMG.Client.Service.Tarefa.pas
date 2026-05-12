@@ -1,12 +1,12 @@
-unit AgendaMontreal.Client.Service.Tarefa;
+﻿unit AgendaBDMG.Client.Service.Tarefa;
 
 interface
 
 uses
   System.SysUtils, System.Classes, REST.Json, REST.Types,
   RESTRequest4D,
-  AgendaMontreal.Client.Config,
-  AgendaMontreal.Client.DTO;
+  AgendaBDMG.Client.Config,
+  AgendaBDMG.Client.DTO;
 
 type
   TTarefaApiService = class

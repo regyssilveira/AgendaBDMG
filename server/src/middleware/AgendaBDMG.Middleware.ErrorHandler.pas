@@ -1,4 +1,4 @@
-unit AgendaMontreal.Middleware.ErrorHandler;
+﻿unit AgendaBDMG.Middleware.ErrorHandler;
 
 interface
 
@@ -11,7 +11,7 @@ implementation
 
 uses
   System.SysUtils, Horse.Exception, Horse.Commons,
-  AgendaMontreal.DTO.Tarefa, AgendaMontreal.Utils.Logger,
+  AgendaBDMG.DTO.Tarefa, AgendaBDMG.Utils.Logger,
   REST.Json;
 
 procedure ErrorHandlerMiddleware(Req: THorseRequest; Res: THorseResponse; Next: TNextProc);

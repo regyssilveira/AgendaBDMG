@@ -1,42 +1,42 @@
-program server;
+﻿program server;
 
 {$APPTYPE CONSOLE}
 
 uses
   Horse,
   System.SysUtils,
-  AgendaMontreal.Utils.Config in 'src\utils\AgendaMontreal.Utils.Config.pas',
-  AgendaMontreal.Utils.Logger in 'src\utils\AgendaMontreal.Utils.Logger.pas',
-  AgendaMontreal.Utils.Json in 'src\utils\AgendaMontreal.Utils.Json.pas',
-  AgendaMontreal.Model.Tarefa in 'src\model\AgendaMontreal.Model.Tarefa.pas',
-  AgendaMontreal.Interfaces in 'src\interfaces\AgendaMontreal.Interfaces.pas',
-  AgendaMontreal.DTO.Tarefa in 'src\dto\AgendaMontreal.DTO.Tarefa.pas',
-  AgendaMontreal.Database.Connection in 'src\database\AgendaMontreal.Database.Connection.pas',
-  AgendaMontreal.Repository.Tarefa in 'src\repository\AgendaMontreal.Repository.Tarefa.pas',
-  AgendaMontreal.Service.Tarefa in 'src\service\AgendaMontreal.Service.Tarefa.pas',
-  AgendaMontreal.Factory.Connection in 'src\factory\AgendaMontreal.Factory.Connection.pas',
-  AgendaMontreal.Factory.Repository in 'src\factory\AgendaMontreal.Factory.Repository.pas',
-  AgendaMontreal.Factory.Service in 'src\factory\AgendaMontreal.Factory.Service.pas',
-  AgendaMontreal.Middleware.Auth in 'src\middleware\AgendaMontreal.Middleware.Auth.pas',
-  AgendaMontreal.Middleware.ErrorHandler in 'src\middleware\AgendaMontreal.Middleware.ErrorHandler.pas',
-  AgendaMontreal.Middleware.Logger in 'src\middleware\AgendaMontreal.Middleware.Logger.pas',
-  AgendaMontreal.Controller.Health in 'src\controller\AgendaMontreal.Controller.Health.pas',
-  AgendaMontreal.Controller.Tarefa in 'src\controller\AgendaMontreal.Controller.Tarefa.pas',
-  AgendaMontreal.Controller.Estatistica in 'src\controller\AgendaMontreal.Controller.Estatistica.pas';
+  AgendaBDMG.Utils.Config in 'src\utils\AgendaBDMG.Utils.Config.pas',
+  AgendaBDMG.Utils.Logger in 'src\utils\AgendaBDMG.Utils.Logger.pas',
+  AgendaBDMG.Utils.Json in 'src\utils\AgendaBDMG.Utils.Json.pas',
+  AgendaBDMG.Model.Tarefa in 'src\model\AgendaBDMG.Model.Tarefa.pas',
+  AgendaBDMG.Interfaces in 'src\interfaces\AgendaBDMG.Interfaces.pas',
+  AgendaBDMG.DTO.Tarefa in 'src\dto\AgendaBDMG.DTO.Tarefa.pas',
+  AgendaBDMG.Database.Connection in 'src\database\AgendaBDMG.Database.Connection.pas',
+  AgendaBDMG.Repository.Tarefa in 'src\repository\AgendaBDMG.Repository.Tarefa.pas',
+  AgendaBDMG.Service.Tarefa in 'src\service\AgendaBDMG.Service.Tarefa.pas',
+  AgendaBDMG.Factory.Connection in 'src\factory\AgendaBDMG.Factory.Connection.pas',
+  AgendaBDMG.Factory.Repository in 'src\factory\AgendaBDMG.Factory.Repository.pas',
+  AgendaBDMG.Factory.Service in 'src\factory\AgendaBDMG.Factory.Service.pas',
+  AgendaBDMG.Middleware.Auth in 'src\middleware\AgendaBDMG.Middleware.Auth.pas',
+  AgendaBDMG.Middleware.ErrorHandler in 'src\middleware\AgendaBDMG.Middleware.ErrorHandler.pas',
+  AgendaBDMG.Middleware.Logger in 'src\middleware\AgendaBDMG.Middleware.Logger.pas',
+  AgendaBDMG.Controller.Health in 'src\controller\AgendaBDMG.Controller.Health.pas',
+  AgendaBDMG.Controller.Tarefa in 'src\controller\AgendaBDMG.Controller.Tarefa.pas',
+  AgendaBDMG.Controller.Estatistica in 'src\controller\AgendaBDMG.Controller.Estatistica.pas';
 
 var
   LPort: Integer;
 begin
   try
     // Middlewares
-    THorse.Use(AgendaMontreal.Middleware.Logger.LoggerMiddleware);
-    THorse.Use(AgendaMontreal.Middleware.Auth.AuthMiddleware);
-    THorse.Use(AgendaMontreal.Middleware.ErrorHandler.ErrorHandlerMiddleware);
+    THorse.Use(AgendaBDMG.Middleware.Logger.LoggerMiddleware);
+    THorse.Use(AgendaBDMG.Middleware.Auth.AuthMiddleware);
+    THorse.Use(AgendaBDMG.Middleware.ErrorHandler.ErrorHandlerMiddleware);
 
     // Controllers
-    AgendaMontreal.Controller.Health.Registry;
-    AgendaMontreal.Controller.Tarefa.Registry;
-    AgendaMontreal.Controller.Estatistica.Registry;
+    AgendaBDMG.Controller.Health.Registry;
+    AgendaBDMG.Controller.Tarefa.Registry;
+    AgendaBDMG.Controller.Estatistica.Registry;
 
     LPort := TServerConfig.GetInstance.ServerPort;
 

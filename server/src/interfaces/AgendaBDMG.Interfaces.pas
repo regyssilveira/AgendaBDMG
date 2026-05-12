@@ -1,11 +1,11 @@
-unit AgendaMontreal.Interfaces;
+﻿unit AgendaBDMG.Interfaces;
 
 interface
 
 uses
   System.Generics.Collections,
-  AgendaMontreal.Model.Tarefa,
-  AgendaMontreal.DTO.Tarefa;
+  AgendaBDMG.Model.Tarefa,
+  AgendaBDMG.DTO.Tarefa;
 
 type
   IDbConnection = interface

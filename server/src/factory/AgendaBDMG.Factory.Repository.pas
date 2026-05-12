@@ -1,10 +1,10 @@
-unit AgendaMontreal.Factory.Repository;
+﻿unit AgendaBDMG.Factory.Repository;
 
 interface
 
 uses
-  AgendaMontreal.Interfaces,
-  AgendaMontreal.Repository.Tarefa;
+  AgendaBDMG.Interfaces,
+  AgendaBDMG.Repository.Tarefa;
 
 type
   TFabricaRepository = class

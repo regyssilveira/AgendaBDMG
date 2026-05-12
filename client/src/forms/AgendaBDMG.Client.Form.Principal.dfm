@@ -1,7 +1,7 @@
-object frmPrincipal: TfrmPrincipal
+﻿object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
-  Caption = 'Agenda Montreal - Gerenciamento de Tarefas'
+  Caption = 'Agenda BDMG - Gerenciamento de Tarefas'
   ClientHeight = 561
   ClientWidth = 884
   Color = clBtnFace

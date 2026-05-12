@@ -1,10 +1,10 @@
-unit AgendaMontreal.Factory.Connection;
+﻿unit AgendaBDMG.Factory.Connection;
 
 interface
 
 uses
-  AgendaMontreal.Interfaces,
-  AgendaMontreal.Database.Connection;
+  AgendaBDMG.Interfaces,
+  AgendaBDMG.Database.Connection;
 
 type
   TFabricaConexao = class

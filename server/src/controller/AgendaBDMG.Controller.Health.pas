@@ -1,4 +1,4 @@
-unit AgendaMontreal.Controller.Health;
+﻿unit AgendaBDMG.Controller.Health;
 
 interface
 
@@ -10,7 +10,7 @@ procedure Registry;
 implementation
 
 uses
-  Horse.Commons, AgendaMontreal.Utils.Json, System.SysUtils;
+  Horse.Commons, AgendaBDMG.Utils.Json, System.SysUtils;
 
 procedure GetHealth(Req: THorseRequest; Res: THorseResponse; Next: TNextProc);
 var

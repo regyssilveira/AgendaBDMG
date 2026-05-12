@@ -1,4 +1,4 @@
-unit AgendaMontreal.Client.Config;
+﻿unit AgendaBDMG.Client.Config;
 
 interface
 
@@ -49,7 +49,7 @@ begin
     LIniFile.WriteInteger('Server', 'Port', 9000);
     LIniFile.WriteString('Server', 'Protocol', 'http');
     
-    LIniFile.WriteString('Security', 'ApiKey', 'agenda-montreal-dev-key-2026');
+    LIniFile.WriteString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
   finally
     LIniFile.Free;
   end;
@@ -88,7 +88,7 @@ begin
     FPort := LIniFile.ReadInteger('Server', 'Port', 9000);
     FProtocol := LIniFile.ReadString('Server', 'Protocol', 'http');
     
-    FApiKey := LIniFile.ReadString('Security', 'ApiKey', 'agenda-montreal-dev-key-2026');
+    FApiKey := LIniFile.ReadString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
   finally
     LIniFile.Free;
   end;

@@ -1,4 +1,4 @@
-unit AgendaMontreal.Utils.Config;
+﻿unit AgendaBDMG.Utils.Config;
 
 interface
 
@@ -53,14 +53,14 @@ begin
   try
     LIniFile.WriteString('Database', 'Server', 'localhost');
     LIniFile.WriteInteger('Database', 'Port', 1433);
-    LIniFile.WriteString('Database', 'Database', 'AgendaMontreal');
+    LIniFile.WriteString('Database', 'Database', 'AgendaBDMG');
     LIniFile.WriteString('Database', 'Username', 'sa');
     LIniFile.WriteString('Database', 'Password', 'SuaSenha123');
     LIniFile.WriteString('Database', 'Driver', 'MSSQL');
     
     LIniFile.WriteInteger('Server', 'Port', 9000);
     
-    LIniFile.WriteString('Security', 'ApiKey', 'agenda-montreal-dev-key-2026');
+    LIniFile.WriteString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
   finally
     LIniFile.Free;
   end;
@@ -93,14 +93,14 @@ begin
   try
     FDatabaseServer := LIniFile.ReadString('Database', 'Server', 'localhost');
     FDatabasePort := LIniFile.ReadInteger('Database', 'Port', 1433);
-    FDatabaseName := LIniFile.ReadString('Database', 'Database', 'AgendaMontreal');
+    FDatabaseName := LIniFile.ReadString('Database', 'Database', 'AgendaBDMG');
     FDatabaseUsername := LIniFile.ReadString('Database', 'Username', 'sa');
     FDatabasePassword := LIniFile.ReadString('Database', 'Password', 'SuaSenha123');
     FDatabaseDriver := LIniFile.ReadString('Database', 'Driver', 'MSSQL');
     
     FServerPort := LIniFile.ReadInteger('Server', 'Port', 9000);
     
-    FApiKey := LIniFile.ReadString('Security', 'ApiKey', 'agenda-montreal-dev-key-2026');
+    FApiKey := LIniFile.ReadString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
   finally
     LIniFile.Free;
   end;

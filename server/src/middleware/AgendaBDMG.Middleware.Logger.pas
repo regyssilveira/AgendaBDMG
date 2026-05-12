@@ -1,4 +1,4 @@
-unit AgendaMontreal.Middleware.Logger;
+﻿unit AgendaBDMG.Middleware.Logger;
 
 interface
 
@@ -10,7 +10,7 @@ procedure LoggerMiddleware(Req: THorseRequest; Res: THorseResponse; Next: TNextP
 implementation
 
 uses
-  AgendaMontreal.Utils.Logger;
+  AgendaBDMG.Utils.Logger;
 
 procedure LoggerMiddleware(Req: THorseRequest; Res: THorseResponse; Next: TNextProc);
 var

@@ -1,4 +1,4 @@
-# Especificação Técnica - Sistema de Gerenciamento de Tarefas em Delphi
+﻿# Especificação Técnica - Sistema de Gerenciamento de Tarefas em Delphi
 
 ## Objetivo
 
@@ -500,7 +500,7 @@ X-API-KEY: SUA_CHAVE
 ### Valor padrão para desenvolvimento
 
 ```text
-API Key padrão (dev): agenda-montreal-dev-key-2026
+API Key padrão (dev): agenda-BDMG-dev-key-2026
 ```
 
 > **Nota:** Em produção, a API Key deve ser configurável via variável de ambiente ou arquivo de configuração externo. O endpoint `/api/health` deve ser acessível **sem autenticação**.
@@ -565,7 +565,7 @@ As configurações do sistema devem ser externalizadas em arquivos `.ini`, local
 [Database]
 Server=localhost
 Port=1433
-Database=AgendaMontreal
+Database=AgendaBDMG
 Username=sa
 Password=SuaSenha123
 ; Driver FireDAC para SQL Server
@@ -575,7 +575,7 @@ Driver=MSSQL
 Port=9000
 
 [Security]
-ApiKey=agenda-montreal-dev-key-2026
+ApiKey=agenda-BDMG-dev-key-2026
 ```
 
 ### Parâmetros do Backend
@@ -584,12 +584,12 @@ ApiKey=agenda-montreal-dev-key-2026
 |-------|-------|------|--------|-----------|
 | `[Database]` | `Server` | String | `localhost` | Endereço do SQL Server |
 | `[Database]` | `Port` | Integer | `1433` | Porta do SQL Server |
-| `[Database]` | `Database` | String | `AgendaMontreal` | Nome do banco de dados |
+| `[Database]` | `Database` | String | `AgendaBDMG` | Nome do banco de dados |
 | `[Database]` | `Username` | String | `sa` | Usuário de conexão |
 | `[Database]` | `Password` | String | — | Senha de conexão |
 | `[Database]` | `Driver` | String | `MSSQL` | Driver FireDAC |
 | `[Server]` | `Port` | Integer | `9000` | Porta do serviço REST |
-| `[Security]` | `ApiKey` | String | `agenda-montreal-dev-key-2026` | Chave de autenticação da API |
+| `[Security]` | `ApiKey` | String | `agenda-BDMG-dev-key-2026` | Chave de autenticação da API |
 
 ---
 
@@ -603,7 +603,7 @@ Port=9000
 Protocol=http
 
 [Security]
-ApiKey=agenda-montreal-dev-key-2026
+ApiKey=agenda-BDMG-dev-key-2026
 ```
 
 ### Parâmetros do Frontend
@@ -613,7 +613,7 @@ ApiKey=agenda-montreal-dev-key-2026
 | `[Server]` | `Host` | String | `localhost` | Endereço do servidor backend |
 | `[Server]` | `Port` | Integer | `9000` | Porta do servidor backend |
 | `[Server]` | `Protocol` | String | `http` | Protocolo de comunicação |
-| `[Security]` | `ApiKey` | String | `agenda-montreal-dev-key-2026` | Chave de autenticação da API |
+| `[Security]` | `ApiKey` | String | `agenda-BDMG-dev-key-2026` | Chave de autenticação da API |
 
 > **Nota:** A URL base será montada automaticamente como `{Protocol}://{Host}:{Port}` (ex: `http://localhost:9000`).
 

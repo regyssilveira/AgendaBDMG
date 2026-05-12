@@ -1,9 +1,9 @@
-unit AgendaMontreal.Middleware.Auth;
+﻿unit AgendaBDMG.Middleware.Auth;
 
 interface
 
 uses
-  Horse, Horse.Commons, System.SysUtils, AgendaMontreal.Utils.Config;
+  Horse, Horse.Commons, System.SysUtils, AgendaBDMG.Utils.Config;
 
 procedure AuthMiddleware(Req: THorseRequest; Res: THorseResponse; Next: TNextProc);
 

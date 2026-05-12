@@ -1,4 +1,4 @@
-unit AgendaMontreal.Controller.Estatistica;
+﻿unit AgendaBDMG.Controller.Estatistica;
 
 interface
 
@@ -11,7 +11,7 @@ implementation
 
 uses
   Horse.Commons, System.SysUtils, REST.Json,
-  AgendaMontreal.Factory.Service, AgendaMontreal.DTO.Tarefa, AgendaMontreal.Interfaces;
+  AgendaBDMG.Factory.Service, AgendaBDMG.DTO.Tarefa, AgendaBDMG.Interfaces;
 
 procedure GetEstatisticas(Req: THorseRequest; Res: THorseResponse; Next: TNextProc);
 var

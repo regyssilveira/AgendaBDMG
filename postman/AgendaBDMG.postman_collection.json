@@ -1,8 +1,8 @@
-{
+﻿{
 	"info": {
 		"_postman_id": "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-		"name": "Agenda Montreal API",
-		"description": "Collection de requisições REST para a API do Agenda Montreal",
+		"name": "Agenda BDMG API",
+		"description": "Collection de requisições REST para a API do Agenda BDMG",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -283,7 +283,7 @@
 		},
 		{
 			"key": "api_key",
-			"value": "agenda-montreal-dev-key-2026",
+			"value": "agenda-BDMG-dev-key-2026",
 			"type": "string"
 		}
 	]

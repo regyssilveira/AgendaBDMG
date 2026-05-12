@@ -1,12 +1,12 @@
-unit AgendaMontreal.Service.Tarefa;
+﻿unit AgendaBDMG.Service.Tarefa;
 
 interface
 
 uses
   System.SysUtils, System.Generics.Collections,
-  AgendaMontreal.Model.Tarefa,
-  AgendaMontreal.DTO.Tarefa,
-  AgendaMontreal.Interfaces;
+  AgendaBDMG.Model.Tarefa,
+  AgendaBDMG.DTO.Tarefa,
+  AgendaBDMG.Interfaces;
 
 type
   TTarefaService = class(TInterfacedObject, ITarefaService)
@@ -30,7 +30,7 @@ implementation
 
 uses
   Horse.Exception, Horse.Commons,
-  AgendaMontreal.Utils.Json, Math;
+  AgendaBDMG.Utils.Json, Math;
 
 { TTarefaService }
 

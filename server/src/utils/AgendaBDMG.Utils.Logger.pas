@@ -1,4 +1,4 @@
-unit AgendaMontreal.Utils.Logger;
+﻿unit AgendaBDMG.Utils.Logger;
 
 interface
 

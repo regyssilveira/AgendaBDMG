@@ -1,12 +1,12 @@
-unit AgendaMontreal.Factory.Service;
+﻿unit AgendaBDMG.Factory.Service;
 
 interface
 
 uses
-  AgendaMontreal.Interfaces,
-  AgendaMontreal.Service.Tarefa,
-  AgendaMontreal.Factory.Connection,
-  AgendaMontreal.Factory.Repository;
+  AgendaBDMG.Interfaces,
+  AgendaBDMG.Service.Tarefa,
+  AgendaBDMG.Factory.Connection,
+  AgendaBDMG.Factory.Repository;
 
 type
   TFabricaService = class

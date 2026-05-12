@@ -1,6 +1,6 @@
-# Agenda Montreal - Sistema de Gerenciamento de Tarefas
+﻿# Agenda BDMG - Sistema de Gerenciamento de Tarefas
 
-O **Agenda Montreal** é um sistema completo e moderno de gerenciamento de tarefas desenvolvido em Delphi, arquitetado para demonstrar proficiência em padrões de projeto, arquitetura de software (Clean Code, SOLID) e separação de responsabilidades.
+O **Agenda BDMG** é um sistema completo e moderno de gerenciamento de tarefas desenvolvido em Delphi, arquitetado para demonstrar proficiência em padrões de projeto, arquitetura de software (Clean Code, SOLID) e separação de responsabilidades.
 
 O projeto é dividido fisicamente em duas aplicações independentes que se comunicam via API REST, promovendo escalabilidade, manutenibilidade e segurança.
 
@@ -58,7 +58,7 @@ Siga as etapas abaixo para ter o ambiente rodando localmente de forma rápida:
 ### 1. Preparação do Banco de Dados
 Certifique-se de possuir acesso a uma instância do MS SQL Server.
 1. Acesse a pasta `/sql/`.
-2. Execute o script `001_create_database.sql` para criar o schema `AgendaMontreal`.
+2. Execute o script `001_create_database.sql` para criar o schema `AgendaBDMG`.
 3. Execute o script `002_create_table_tarefas.sql`. Ele irá criar a tabela, as constraints, os índices e **inserir 5 tarefas de exemplo (Seed)**.
 
 ### 2. Configurando o Ambiente
@@ -67,7 +67,7 @@ Se os arquivos não existirem na primeira execução, as aplicações os criarã
 
 Para configurar antes de abrir:
 1. Copie o arquivo `server.ini.example` localizado na raiz para a pasta onde o `server.exe` será compilado, renomeando-o para `server.ini`. Ajuste o `[Database]Username` e `[Database]Password`.
-2. O sistema usa uma chave de segurança nativa (padrão: `agenda-montreal-dev-key-2026`). Verifique se a chave é idêntica no `server.ini` e no `client.ini` (copiado do `client.ini.example`).
+2. O sistema usa uma chave de segurança nativa (padrão: `agenda-BDMG-dev-key-2026`). Verifique se a chave é idêntica no `server.ini` e no `client.ini` (copiado do `client.ini.example`).
 
 ### 3. Instalando as Dependências e Compilando o Backend
 1. Abra o prompt de comando (CMD/PowerShell) na pasta `/server/`.
@@ -85,7 +85,7 @@ Para configurar antes de abrir:
 
 ## 📡 Documentação da API REST
 
-A API conta com endpoints ricos e testáveis via a [Collection do Postman](./postman/AgendaMontreal.postman_collection.json) incluída no projeto. Basta importá-la no Postman ou Insomnia.
+A API conta com endpoints ricos e testáveis via a [Collection do Postman](./postman/AgendaBDMG.postman_collection.json) incluída no projeto. Basta importá-la no Postman ou Insomnia.
 
 | Método | Endpoint | Descrição | Status HTTP |
 |---|---|---|---|
@@ -98,7 +98,7 @@ A API conta com endpoints ricos e testáveis via a [Collection do Postman](./pos
 | DELETE| `/api/tarefas/:id` | Oculta a tarefa do sistema (Soft Delete) | 200 OK / 404 NotFound |
 | GET | `/api/estatisticas` | Executa as métricas (KPIs) usadas no Dashboard do Cliente | 200 OK |
 
-Todos os endpoints (exceto o health) esperam o cabeçalho: `X-API-KEY: agenda-montreal-dev-key-2026`. Em caso de ausência ou valor incorreto, a API devolve código HTTP 401 Unauthorized, gerido nativamente pelo `AuthMiddleware`.
+Todos os endpoints (exceto o health) esperam o cabeçalho: `X-API-KEY: agenda-BDMG-dev-key-2026`. Em caso de ausência ou valor incorreto, a API devolve código HTTP 401 Unauthorized, gerido nativamente pelo `AuthMiddleware`.
 
 ---
-*Agenda Montreal foi construído primando pela qualidade de código e solidez estrutural.*
+*Agenda BDMG foi construído primando pela qualidade de código e solidez estrutural.*

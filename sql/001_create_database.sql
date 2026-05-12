@@ -1,5 +1,5 @@
-CREATE DATABASE AgendaMontreal;
+﻿CREATE DATABASE AgendaBDMG;
 GO
 
-USE AgendaMontreal;
+USE AgendaBDMG;
 GO

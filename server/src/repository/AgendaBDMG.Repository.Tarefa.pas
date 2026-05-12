@@ -1,12 +1,12 @@
-unit AgendaMontreal.Repository.Tarefa;
+﻿unit AgendaBDMG.Repository.Tarefa;
 
 interface
 
 uses
   System.SysUtils, System.Classes, System.Generics.Collections,
   Data.DB, FireDAC.Comp.Client,
-  AgendaMontreal.Model.Tarefa,
-  AgendaMontreal.Interfaces;
+  AgendaBDMG.Model.Tarefa,
+  AgendaBDMG.Interfaces;
 
 type
   TTarefaRepository = class(TInterfacedObject, ITarefaRepository)
@@ -28,7 +28,7 @@ type
 implementation
 
 uses
-  AgendaMontreal.Utils.Logger;
+  AgendaBDMG.Utils.Logger;
 
 { TTarefaRepository }
 

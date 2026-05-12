@@ -1,7 +1,7 @@
-[Server]
+﻿[Server]
 Host=localhost
 Port=9000
 Protocol=http
 
 [Security]
-ApiKey=agenda-montreal-dev-key-2026
+ApiKey=agenda-BDMG-dev-key-2026

@@ -1,4 +1,4 @@
-USE AgendaMontreal;
+﻿USE AgendaBDMG;
 GO
 
 CREATE TABLE Tarefas (

@@ -1,10 +1,9 @@
-unit AgendaMontreal.DTO.Tarefa;
+﻿unit AgendaBDMG.Client.DTO;
 
 interface
 
 uses
-  System.Generics.Collections,
-  AgendaMontreal.Model.Tarefa;
+  System.Generics.Collections;
 
 type
   TTarefaCreateDTO = class
@@ -35,7 +34,7 @@ type
     FPrioridade: Integer;
     FStatus: string;
     FDataCriacao: string;
-    FDataConclusao: string; // Nullable equivalent in string format
+    FDataConclusao: string;
   public
     property Id: Integer read FId write FId;
     property Titulo: string read FTitulo write FTitulo;
@@ -82,30 +81,6 @@ type
     property TarefasConcluidasUltimos7Dias: Integer read FTarefasConcluidasUltimos7Dias write FTarefasConcluidasUltimos7Dias;
   end;
 
-  TErroResponseDTO = class
-  private
-    FSucesso: Boolean;
-    FMensagem: string;
-    FDetalhes: string;
-  public
-    property Sucesso: Boolean read FSucesso write FSucesso;
-    property Mensagem: string read FMensagem write FMensagem;
-    property Detalhes: string read FDetalhes write FDetalhes;
-
-    constructor Create(const AMensagem: string; const ADetalhes: string = '');
-  end;
-
-  TSucessoResponseDTO = class
-  private
-    FSucesso: Boolean;
-    FMensagem: string;
-  public
-    property Sucesso: Boolean read FSucesso write FSucesso;
-    property Mensagem: string read FMensagem write FMensagem;
-
-    constructor Create(const AMensagem: string);
-  end;
-
 implementation
 
 { TListaTarefasResponseDTO }
@@ -121,23 +96,6 @@ begin
   FDados.Free;
   FPaginacao.Free;
   inherited;
-end;
-
-{ TErroResponseDTO }
-
-constructor TErroResponseDTO.Create(const AMensagem, ADetalhes: string);
-begin
-  FSucesso := False;
-  FMensagem := AMensagem;
-  FDetalhes := ADetalhes;
-end;
-
-{ TSucessoResponseDTO }
-
-constructor TSucessoResponseDTO.Create(const AMensagem: string);
-begin
-  FSucesso := True;
-  FMensagem := AMensagem;
 end;
 
 end.

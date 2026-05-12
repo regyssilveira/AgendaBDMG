@@ -1,4 +1,4 @@
-unit AgendaMontreal.Database.Connection;
+﻿unit AgendaBDMG.Database.Connection;
 
 interface
 
@@ -10,8 +10,8 @@ uses
   FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.Phys.MSSQL, FireDAC.Phys.MSSQLDef, FireDAC.ConsoleUI.Wait,
   FireDAC.Comp.Client,
-  AgendaMontreal.Interfaces,
-  AgendaMontreal.Utils.Config;
+  AgendaBDMG.Interfaces,
+  AgendaBDMG.Utils.Config;
 
 type
   TDatabaseConnection = class(TInterfacedObject, IDbConnection)
