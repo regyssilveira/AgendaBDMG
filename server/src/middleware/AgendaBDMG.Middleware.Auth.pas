@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Middleware.Auth;
+unit AgendaBDMG.Middleware.Auth;
 
 interface
 
@@ -17,8 +17,11 @@ var
   LConfig: TServerConfig;
   LApiKeyHeader: string;
 begin
-  // Ignora auth para o health check
-  if Trim(Req.RawWebRequest.PathInfo) = '/api/health' then
+  // Ignora auth para endpoints públicos
+  if (Trim(Req.RawWebRequest.PathInfo) = '/api/health') or
+     (Trim(Req.RawWebRequest.PathInfo) = '/api') or
+     (Trim(Req.RawWebRequest.PathInfo) = '/api/') or
+     Req.RawWebRequest.PathInfo.StartsWith('/swagger') then
   begin
     Next();
     Exit;

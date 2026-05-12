@@ -4,6 +4,9 @@ program server;
 
 uses
   Horse,
+  Horse.GBSwagger,
+  GBSwagger.Path.Attributes,
+  GBSwagger.Model.Interfaces,
   System.SysUtils,
   Winapi.Windows,
   AgendaBDMG.Utils.Config in 'src\utils\AgendaBDMG.Utils.Config.pas',
@@ -23,21 +26,33 @@ uses
   AgendaBDMG.Middleware.Logger in 'src\middleware\AgendaBDMG.Middleware.Logger.pas',
   AgendaBDMG.Controller.Health in 'src\controller\AgendaBDMG.Controller.Health.pas',
   AgendaBDMG.Controller.Tarefa in 'src\controller\AgendaBDMG.Controller.Tarefa.pas',
-  AgendaBDMG.Controller.Estatistica in 'src\controller\AgendaBDMG.Controller.Estatistica.pas';
+  AgendaBDMG.Controller.Estatistica in 'src\controller\AgendaBDMG.Controller.Estatistica.pas',
+  AgendaBDMG.Controller.Home in 'src\controller\AgendaBDMG.Controller.Home.pas';
 
 var
   LPort: Integer;
 begin
   try
+    // Swagger Meta
+    Swagger
+      .BasePath('/api')
+      .Info
+        .Title('Agenda BDMG API')
+        .Version('1.0.0')
+        .Description('API do sistema de gerenciamento de tarefas');
+
+
     // Middlewares
     THorse.Use(AgendaBDMG.Middleware.Logger.LoggerMiddleware);
     THorse.Use(AgendaBDMG.Middleware.Auth.AuthMiddleware);
     THorse.Use(AgendaBDMG.Middleware.ErrorHandler.ErrorHandlerMiddleware);
+    THorse.Use(HorseSwagger);
 
     // Controllers
     AgendaBDMG.Controller.Health.Registry;
     AgendaBDMG.Controller.Tarefa.Registry;
     AgendaBDMG.Controller.Estatistica.Registry;
+    AgendaBDMG.Controller.Home.Registry;
 
     LPort := TServerConfig.GetInstance.ServerPort;
 
@@ -54,7 +69,7 @@ begin
         Writeln('=============================================================');
         Writeln(Format(' [v] Status     : ONLINE na porta %d', [LPort])); 
         Writeln(Format(' [v] Base URL   : http://localhost:%d/api', [LPort]));
-        Writeln(Format(' [v] Swagger UI : http://localhost:%d/swagger (Em breve)', [LPort]));
+        Writeln(Format(' [v] Swagger UI : http://localhost:%d/swagger/doc/html', [LPort]));
         Writeln('-------------------------------------------------------------');
         Writeln('                CONEXAO COM BANCO DE DADOS                   ');
         Writeln('-------------------------------------------------------------');

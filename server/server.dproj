@@ -87,7 +87,7 @@
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
-    <DCC_UnitSearchPath>modules\.dcp;..\modules\.dcp;modules\.dcu;..\modules\.dcu;$(DCC_UnitSearchPath);modules;..\modules;modules\horse\src;..\modules\horse\src</DCC_UnitSearchPath></PropertyGroup>
+    <DCC_UnitSearchPath>..\modules\.dcp;..\modules\.dcu;$(DCC_UnitSearchPath);..\modules;..\modules\horse\src;modules\.dcp;modules\.dcu;modules;modules\gbswagger\Source\Core;..\modules\gbswagger\Source\Core;modules\gbswagger\Source\Datasnap;..\modules\gbswagger\Source\Datasnap;modules\gbswagger\Source\Horse;..\modules\gbswagger\Source\Horse;modules\gbswagger\Source\Validator;..\modules\gbswagger\Source\Validator;modules\horse\src</DCC_UnitSearchPath></PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=35</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
