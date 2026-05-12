@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Database.Connection;
+unit AgendaBDMG.Database.Connection;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
   FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.Phys.MSSQL, FireDAC.Phys.MSSQLDef, FireDAC.ConsoleUI.Wait,
-  FireDAC.Comp.Client,
+  FireDAC.Comp.Client, FireDAC.DApt,
   AgendaBDMG.Interfaces,
   AgendaBDMG.Utils.Config;
 
@@ -17,6 +17,7 @@ type
   TDatabaseConnection = class(TInterfacedObject, IDbConnection)
   private
     FConnection: TFDConnection;
+    class procedure RegisterPool;
     procedure ConfigureConnection;
   public
     constructor Create;
@@ -31,25 +32,32 @@ implementation
 
 { TDatabaseConnection }
 
-procedure TDatabaseConnection.ConfigureConnection;
+class procedure TDatabaseConnection.RegisterPool;
 var
+  LDef: IFDStanConnectionDef;
   LConfig: TServerConfig;
 begin
-  LConfig := TServerConfig.GetInstance;
-  
-  FConnection.Params.Clear;
-  FConnection.Params.Add('DriverID=' + LConfig.DatabaseDriver);
-  FConnection.Params.Add('Server=' + LConfig.DatabaseServer);
-  if LConfig.DatabasePort > 0 then
-    FConnection.Params.Add('Port=' + LConfig.DatabasePort.ToString);
-  FConnection.Params.Add('Database=' + LConfig.DatabaseName);
-  FConnection.Params.Add('User_Name=' + LConfig.DatabaseUsername);
-  FConnection.Params.Add('Password=' + LConfig.DatabasePassword);
-  
-  // Connection Pooling
-  FConnection.Params.Add('Pooled=True');
-  FConnection.Params.Add('POOL_MaximumItems=50');
-  
+  if not FDManager.IsConnectionDef('AgendaPool') then
+  begin
+    LConfig := TServerConfig.GetInstance;
+    LDef := FDManager.ConnectionDefs.AddConnectionDef;
+    LDef.Name := 'AgendaPool';
+    LDef.Params.Add('DriverID=' + LConfig.DatabaseDriver);
+    LDef.Params.Add('Server=' + LConfig.DatabaseServer);
+    if LConfig.DatabasePort > 0 then
+      LDef.Params.Add('Port=' + LConfig.DatabasePort.ToString);
+    LDef.Params.Add('Database=' + LConfig.DatabaseName);
+    LDef.Params.Add('User_Name=' + LConfig.DatabaseUsername);
+    LDef.Params.Add('Password=' + LConfig.DatabasePassword);
+    LDef.Params.Add('Pooled=True');
+    LDef.Params.Add('POOL_MaximumItems=50');
+  end;
+end;
+
+procedure TDatabaseConnection.ConfigureConnection;
+begin
+  RegisterPool;
+  FConnection.ConnectionDefName := 'AgendaPool';
   FConnection.LoginPrompt := False;
 end;
 

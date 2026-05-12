@@ -1,0 +1,10 @@
+[2026-05-12 15:18:46.483] [INFO] GET /api/health - Status: 200 - 0 ms
+[2026-05-12 15:18:55.672] [ERROR] [Exception] Message: [FireDAC][Comp][Clnt]-507. Connection [$01CC9370: TFDConnection] cannot be pooled. Possible reason: connection definition is not in the FDManager.ConnectionDefs list or TFDConnection.Params has additional parameters
+[2026-05-12 15:18:55.678] [INFO] GET /api/tarefas - Status: 500 - 18 ms
+[2026-05-12 15:19:32.707] [ERROR] [Exception] Message: [FireDAC][Comp][Clnt]-507. Connection [$01E9F9A0: TFDConnection] cannot be pooled. Possible reason: connection definition is not in the FDManager.ConnectionDefs list or TFDConnection.Params has additional parameters
+[2026-05-12 15:19:32.711] [INFO] GET /api/tarefas - Status: 500 - 5 ms
+[2026-05-12 15:19:47.143] [ERROR] [Exception] Message: Object factory for class {3E9B315B-F456-4175-A864-B2573C4A2304} is missing. To register it, you can include unit [FireDAC.DApt] into your project
+[2026-05-12 15:19:47.145] [INFO] GET /api/tarefas - Status: 500 - 603 ms
+[2026-05-12 15:20:14.976] [SQL] SELECT COUNT(*) AS Total FROM Tarefas  WHERE DataExclusao IS NULL 
+[2026-05-12 15:20:15.080] [SQL] SELECT * FROM Tarefas  WHERE DataExclusao IS NULL  ORDER BY DataCriacao DESC  OFFSET :Offset ROWS FETCH NEXT :Limit ROWS ONLY
+[2026-05-12 15:20:15.087] [INFO] GET /api/tarefas - Status: 200 - 240 ms
