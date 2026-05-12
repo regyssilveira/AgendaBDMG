@@ -17,8 +17,9 @@ var
   LConfig: TServerConfig;
   LApiKeyHeader: string;
 begin
-  // Ignora auth para endpoints públicos
-  if (Trim(Req.RawWebRequest.PathInfo) = '/api/health') or
+  // Ignora auth para preflight OPTIONS ou endpoints públicos
+  if (UpperCase(Req.RawWebRequest.Method) = 'OPTIONS') or
+     (Trim(Req.RawWebRequest.PathInfo) = '/api/health') or
      (Trim(Req.RawWebRequest.PathInfo) = '/api') or
      (Trim(Req.RawWebRequest.PathInfo) = '/api/') or
      Req.RawWebRequest.PathInfo.StartsWith('/swagger') then

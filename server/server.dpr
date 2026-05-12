@@ -27,7 +27,8 @@ uses
   AgendaBDMG.Controller.Health in 'src\controller\AgendaBDMG.Controller.Health.pas',
   AgendaBDMG.Controller.Tarefa in 'src\controller\AgendaBDMG.Controller.Tarefa.pas',
   AgendaBDMG.Controller.Estatistica in 'src\controller\AgendaBDMG.Controller.Estatistica.pas',
-  AgendaBDMG.Controller.Home in 'src\controller\AgendaBDMG.Controller.Home.pas';
+  AgendaBDMG.Controller.Home in 'src\controller\AgendaBDMG.Controller.Home.pas',
+  AgendaBDMG.Middleware.CORS in 'src\middleware\AgendaBDMG.Middleware.CORS.pas';
 
 var
   LPort: Integer;
@@ -44,6 +45,7 @@ begin
 
     // Middlewares
     THorse.Use(AgendaBDMG.Middleware.Logger.LoggerMiddleware);
+    THorse.Use(AgendaBDMG.Middleware.CORS.CORSMiddleware);
     THorse.Use(AgendaBDMG.Middleware.Auth.AuthMiddleware);
     THorse.Use(AgendaBDMG.Middleware.ErrorHandler.ErrorHandlerMiddleware);
     THorse.Use(HorseSwagger);

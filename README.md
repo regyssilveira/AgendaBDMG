@@ -51,64 +51,99 @@ O Client Desktop interage exclusivamente com a API:
 
 ---
 
-## 🚀 Como Configurar e Executar
+## 🚀 Passo a Passo de Execução para Iniciantes
 
-Siga as etapas abaixo para ter o ambiente rodando localmente de forma rápida:
+Para que qualquer pessoa (mesmo sem experiência prévia com Delphi) consiga rodar o sistema completo localmente em poucos minutos, elaboramos este guia passo a passo detalhado:
 
-### 1. Preparação do Banco de Dados
-Certifique-se de possuir acesso a uma instância do MS SQL Server. Para facilitar, o projeto inclui um arquivo `docker-compose.yml` pré-configurado.
+### Etapa 1: Subindo o Banco de Dados (SQL Server)
+O sistema precisa de um banco de dados para salvar as tarefas. A forma mais simples e rápida é usar o Docker já incluso no projeto:
 
-**Opção A: Usando Docker (Recomendado)**
-1. Abra o prompt na raiz do projeto e execute: `docker-compose up -d`
-2. O SQL Server 2022 estará rodando na porta `1433` com o usuário `sa` e senha `SuaSenha@123`.
-3. Conecte-se ao banco via DBeaver ou SQL Server Management Studio (SSMS).
-4. Execute os scripts da pasta `/sql/`:
-   - `001_create_database.sql` para criar o schema `AgendaBDMG`.
-   - `002_create_table_tarefas.sql` para criar a tabela, constraints, índices e inserir os dados (Seed).
-
-**Opção B: Usando SQL Server Local**
-1. Acesse a pasta `/sql/`.
-2. Execute o script `001_create_database.sql` na sua instância.
-3. Execute o script `002_create_table_tarefas.sql`.
-
-### 2. Configurando o Ambiente
-As aplicações leem arquivos `.ini` físicos para suas configurações (banco, portas, API keys).
-Se os arquivos não existirem na primeira execução, as aplicações os criarão com dados padrão.
-
-Para configurar antes de abrir:
-1. Copie o arquivo `server.ini.example` localizado na raiz para a pasta onde o `server.exe` será compilado, renomeando-o para `server.ini`. Ajuste o `[Database]Username` e `[Database]Password`.
-2. O sistema usa uma chave de segurança nativa (padrão: `agenda-BDMG-dev-key-2026`). Verifique se a chave é idêntica no `server.ini` e no `client.ini` (copiado do `client.ini.example`).
-
-### 3. Instalando as Dependências e Compilando o Backend
-1. Abra o prompt de comando (CMD/PowerShell) na pasta `/server/`.
-2. Execute o comando `boss install` (requer o Boss instalado na máquina). Isso fará o download do Horse.
-3. Abra o projeto no Delphi ou compile via terminal: `dcc32 server.dpr`.
-4. Execute o `server.exe`. Você verá uma mensagem no console: `Server running on port 9000`.
-
-### 4. Instalando as Dependências e Compilando o Frontend
-1. Abra o prompt de comando (CMD/PowerShell) na pasta `/client/`.
-2. Execute o comando `boss install github.com/viniciussanchez/RESTRequest4Delphi`.
-3. Abra o projeto no Delphi ou compile via terminal: `dcc32 client.dpr`.
-4. Execute o `client.exe`. A tela carregará as configurações, fará o login automático pela API Key informada e carregará as tarefas simuladas inseridas pelo script SQL.
+1. Certifique-se de ter o **Docker Desktop** instalado e aberto no seu Windows.
+2. Abra um terminal (PowerShell ou Prompt de Comando) na pasta raiz do projeto.
+3. Digite o comando abaixo e pressione Enter:
+   ```bash
+   docker-compose up -d
+   ```
+4. O Docker baixará a imagem oficial do SQL Server 2022 e iniciará o banco na porta padrão `1433` com a senha ultrassegura `SuaSenha@123`.
+5. Abra o seu gerenciador de banco de dados favorito (como o **DBeaver** ou o **SSMS**) e conecte-se em `localhost:1433` usando o usuário `sa` e a senha `SuaSenha@123`.
+6. Abra e execute os dois scripts localizados na pasta `/sql/`:
+   * Primeiro rode o `001_create_database.sql` para criar o banco de dados vazio.
+   * Em seguida, rode o `002_create_table_tarefas.sql` para criar as tabelas e popular o sistema com tarefas de demonstração iniciais.
 
 ---
 
-## 📡 Documentação da API REST
+### Etapa 2: Configurando as Chaves e Senhas
+Tanto o servidor quanto o cliente utilizam arquivos simples de texto (`.ini`) para saber onde está o banco e qual é a chave secreta de comunicação.
 
-A API conta com endpoints ricos e testáveis via a [Collection do Postman](./postman/AgendaBDMG.postman_collection.json) incluída no projeto. Basta importá-la no Postman ou Insomnia.
+1. Na pasta raiz do projeto, localize o arquivo chamado `server.ini.example`. Copie e cole este arquivo dentro da pasta `/server/`, renomeando a cópia para **`server.ini`**.
+2. Abra o `server.ini` em um bloco de notas. Verifique se as configurações de banco correspondem ao Docker (usuário `sa` e senha `SuaSenha@123`).
+3. Localize o arquivo `client.ini.example` na raiz do projeto. Copie e cole dentro da pasta `/client/`, renomeando a cópia para **`client.ini`**.
+4. Ambos os arquivos já vêm configurados com a chave de segurança padrão (`agenda-BDMG-dev-key-2026`). Não é necessário alterá-la para testes locais.
+
+---
+
+### Etapa 3: Compilando e Rodando o Servidor (Backend API)
+1. Abra um terminal dentro da pasta `/server/`.
+2. Baixe as dependências do projeto executando o gerenciador de pacotes do Delphi:
+   ```bash
+   boss install
+   ```
+3. Compile o servidor executando o compilador de linha de comando do Delphi:
+   ```bash
+   dcc32 server.dpr
+   ```
+4. Inicie o executável gerado:
+   ```bash
+   .\server.exe
+   ```
+5. **Sucesso!** Uma janela de console se abrirá exibindo um painel de status completo, informando que a API está **ONLINE na porta 9005**. Deixe esta janela aberta.
+
+---
+
+### Etapa 4: Explorando a Documentação Viva (Swagger UI)
+Com o servidor rodando, você pode testar a API diretamente pelo navegador sem precisar de nenhuma ferramenta externa!
+
+* **Página Inicial de Boas-Vindas:** Abra [http://localhost:9005/api](http://localhost:9005/api) para ver o painel inicial.
+* **Interface Interativa do Swagger:** Acesse [http://localhost:9005/swagger/doc/html](http://localhost:9005/swagger/doc/html). 
+  Pelo Swagger UI, você visualiza todos os campos, descrições em português e pode clicar em *"Try it out"* para enviar requisições reais para o servidor.
+
+---
+
+### Etapa 5: Rodando o Aplicativo Desktop (Client VCL)
+1. Abra um terminal dentro da pasta `/client/`.
+2. Baixe a biblioteca de requisições REST executando:
+   ```bash
+   boss install github.com/viniciussanchez/RESTRequest4Delphi
+   ```
+3. Compile o aplicativo cliente:
+   ```bash
+   dcc32 client.dpr
+   ```
+4. Inicie o aplicativo:
+   ```bash
+   .\client.exe
+   ```
+5. **Pronto!** A interface gráfica moderna carregará automaticamente, conectando-se à API e listando todas as tarefas cadastradas com totalizadores estatísticos em tempo real.
+
+---
+
+## 📡 Referência Rápida dos Endpoints da API
+
+Para integrações externas (como o frontend em Angular ou via Postman), a API responde nos seguintes endereços baseados em `http://localhost:9005/api`:
 
 | Método | Endpoint | Descrição | Status HTTP |
 |---|---|---|---|
-| GET | `/api/health` | Verifica a integridade e uptime da API (sem Auth) | 200 OK |
-| GET | `/api/tarefas` | Listagem com parâmetros: `page`, `limit`, `status`, `prioridade`, `ordem` | 200 OK |
-| GET | `/api/tarefas/:id` | Recupera detalhes de uma tarefa ativa | 200 OK / 404 NotFound |
-| POST | `/api/tarefas` | Cria uma nova tarefa | 201 Created |
-| PUT | `/api/tarefas/:id` | Atualiza dados descritivos e prioridade | 200 OK / 404 NotFound |
-| PUT | `/api/tarefas/:id/status`| Aciona a transição de status (valida a máquina de estado) | 200 OK / 422 Unprocessable |
-| DELETE| `/api/tarefas/:id` | Oculta a tarefa do sistema (Soft Delete) | 200 OK / 404 NotFound |
-| GET | `/api/estatisticas` | Executa as métricas (KPIs) usadas no Dashboard do Cliente | 200 OK |
+| **GET** | `/health` | Monitoramento de integridade e uptime da API (Público) | `200 OK` |
+| **GET** | `/tarefas` | Lista tarefas ativas com paginação e filtros | `200 OK` |
+| **GET** | `/tarefas/:id` | Retorna os detalhes completos de uma tarefa específica | `200 OK` / `404 Not Found` |
+| **POST** | `/tarefas` | Cadastra uma nova tarefa no banco de dados | `201 Created` |
+| **PUT** | `/tarefas/:id` | Edita o título, descrição e prioridade de uma tarefa | `200 OK` / `404 Not Found` |
+| **PUT** | `/tarefas/:id/status`| Altera o status validando regras lógicas de transição | `200 OK` / `422 Unprocessable` |
+| **DELETE**| `/tarefas/:id` | Realiza a exclusão lógica (*Soft Delete*) da tarefa | `200 OK` / `404 Not Found` |
+| **GET** | `/estatisticas` | Retorna os KPIs consolidados para os painéis de dashboard | `200 OK` |
 
-Todos os endpoints (exceto o health) esperam o cabeçalho: `X-API-KEY: agenda-BDMG-dev-key-2026`. Em caso de ausência ou valor incorreto, a API devolve código HTTP 401 Unauthorized, gerido nativamente pelo `AuthMiddleware`.
+> **Autenticação Obrigatória:** Todas as rotas (exceto `/health`, a raiz `/api` e o Swagger) exigem o envio do cabeçalho de segurança:
+> `X-API-KEY: agenda-BDMG-dev-key-2026`
 
 ---
-*Agenda BDMG foi construído primando pela qualidade de código e solidez estrutural.*
+*Agenda BDMG foi construído primando pela excelência em engenharia de software, legibilidade e alta manutenibilidade.*
