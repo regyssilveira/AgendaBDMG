@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Client.Form.Principal;
+unit AgendaBDMG.Client.Form.Principal;
 
 interface
 
@@ -49,6 +49,7 @@ type
     procedure btnAlterarStatusClick(Sender: TObject);
     procedure btnAnteriorClick(Sender: TObject);
     procedure btnProximoClick(Sender: TObject);
+    procedure dsTarefasDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
     FTarefaService: TTarefaApiService;
@@ -75,6 +76,7 @@ begin
   FPaginaAtual := 1;
   FTotalPaginas := 1;
   mtTarefas.CreateDataSet;
+  dsTarefas.OnDataChange := dsTarefasDataChange;
   CarregarTarefas;
   CarregarEstatisticas;
 end;
@@ -131,6 +133,7 @@ var
   frmStatus: TfrmStatus;
 begin
   if mtTarefas.IsEmpty then Exit;
+  if TStatusTarefaClient.FromDisplayString(mtTarefasStatus.AsString) = stConcluida then Exit;
   
   LId := mtTarefasId.AsInteger;
   
@@ -184,6 +187,7 @@ var
   frmTarefa: TfrmTarefa;
 begin
   if mtTarefas.IsEmpty then Exit;
+  if TStatusTarefaClient.FromDisplayString(mtTarefasStatus.AsString) in [stConcluida, stCancelada] then Exit;
   
   LId := mtTarefasId.AsInteger;
   LTarefaResponse := FTarefaService.ObterPorId(LId);
@@ -220,6 +224,7 @@ var
   LId: Integer;
 begin
   if mtTarefas.IsEmpty then Exit;
+  if TStatusTarefaClient.FromDisplayString(mtTarefasStatus.AsString) in [stConcluida, stCancelada] then Exit;
   
   LId := mtTarefasId.AsInteger;
   
@@ -312,6 +317,27 @@ begin
     on E: Exception do
       ShowMessage('Erro ao carregar tarefas: ' + E.Message);
   end;
+end;
+
+procedure TfrmPrincipal.dsTarefasDataChange(Sender: TObject; Field: TField);
+var
+  LStatusEnum: TStatusTarefaClient;
+begin
+  btnAdicionar.Enabled := True;
+  
+  if mtTarefas.IsEmpty then
+  begin
+    btnEditar.Enabled := False;
+    btnExcluir.Enabled := False;
+    btnAlterarStatus.Enabled := False;
+    Exit;
+  end;
+  
+  LStatusEnum := TStatusTarefaClient.FromDisplayString(mtTarefasStatus.AsString);
+  
+  btnEditar.Enabled := not (LStatusEnum in [stConcluida, stCancelada]);
+  btnExcluir.Enabled := not (LStatusEnum in [stConcluida, stCancelada]);
+  btnAlterarStatus.Enabled := (LStatusEnum <> stConcluida);
 end;
 
 end.

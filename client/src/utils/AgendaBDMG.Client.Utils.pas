@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Client.Utils;
+unit AgendaBDMG.Client.Utils;
 
 interface
 
@@ -6,6 +6,16 @@ uses
   System.SysUtils;
 
 type
+  TStatusTarefaClient = (stPendente, stEmAndamento, stConcluida, stCancelada);
+
+  TStatusTarefaClientHelper = record helper for TStatusTarefaClient
+  public
+    function ToString: string;
+    function ToDisplayString: string;
+    class function FromString(const AValue: string): TStatusTarefaClient; static;
+    class function FromDisplayString(const AValue: string): TStatusTarefaClient; static;
+  end;
+
   TClientUtils = class
   public
     class function PrioridadeToString(APrioridade: Integer): string;
@@ -16,6 +26,44 @@ type
   end;
 
 implementation
+
+{ TStatusTarefaClientHelper }
+
+class function TStatusTarefaClientHelper.FromDisplayString(const AValue: string): TStatusTarefaClient;
+begin
+  if AValue = 'Em Andamento' then Result := stEmAndamento
+  else if AValue = 'Concluída' then Result := stConcluida
+  else if AValue = 'Cancelada' then Result := stCancelada
+  else Result := stPendente;
+end;
+
+class function TStatusTarefaClientHelper.FromString(const AValue: string): TStatusTarefaClient;
+begin
+  if AValue = 'EM_ANDAMENTO' then Result := stEmAndamento
+  else if AValue = 'CONCLUIDA' then Result := stConcluida
+  else if AValue = 'CANCELADA' then Result := stCancelada
+  else Result := stPendente;
+end;
+
+function TStatusTarefaClientHelper.ToDisplayString: string;
+begin
+  case Self of
+    stPendente: Result := 'Pendente';
+    stEmAndamento: Result := 'Em Andamento';
+    stConcluida: Result := 'Concluída';
+    stCancelada: Result := 'Cancelada';
+  end;
+end;
+
+function TStatusTarefaClientHelper.ToString: string;
+begin
+  case Self of
+    stPendente: Result := 'PENDENTE';
+    stEmAndamento: Result := 'EM_ANDAMENTO';
+    stConcluida: Result := 'CONCLUIDA';
+    stCancelada: Result := 'CANCELADA';
+  end;
+end;
 
 { TClientUtils }
 
@@ -61,20 +109,12 @@ end;
 
 class function TClientUtils.StatusToString(const AStatus: string): string;
 begin
-  if AStatus = 'PENDENTE' then Result := 'Pendente'
-  else if AStatus = 'EM_ANDAMENTO' then Result := 'Em Andamento'
-  else if AStatus = 'CONCLUIDA' then Result := 'Concluída'
-  else if AStatus = 'CANCELADA' then Result := 'Cancelada'
-  else Result := AStatus;
+  Result := TStatusTarefaClient.FromString(AStatus).ToDisplayString;
 end;
 
 class function TClientUtils.StringToStatus(const AStatus: string): string;
 begin
-  if AStatus = 'Pendente' then Result := 'PENDENTE'
-  else if AStatus = 'Em Andamento' then Result := 'EM_ANDAMENTO'
-  else if AStatus = 'Concluída' then Result := 'CONCLUIDA'
-  else if AStatus = 'Cancelada' then Result := 'CANCELADA'
-  else Result := AStatus;
+  Result := TStatusTarefaClient.FromDisplayString(AStatus).ToString;
 end;
 
 end.
