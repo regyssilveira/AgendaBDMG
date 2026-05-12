@@ -147,7 +147,7 @@ begin
       begin
         LDTO := TTarefaStatusDTO.Create;
         try
-          LDTO.Status := frmStatus.FNovoStatus;
+          LDTO.StatusEnum := TStatusTarefaClient.FromString(frmStatus.FNovoStatus);
           FTarefaService.AtualizarStatus(LId, LDTO).Free;
           CarregarTarefas;
           CarregarEstatisticas;
@@ -296,7 +296,7 @@ begin
         mtTarefasId.AsInteger := LTarefa.Id;
         mtTarefasTitulo.AsString := LTarefa.Titulo;
         mtTarefasPrioridade.AsString := TClientUtils.PrioridadeToString(LTarefa.Prioridade);
-        mtTarefasStatus.AsString := TClientUtils.StatusToString(LTarefa.Status);
+        mtTarefasStatus.AsString := LTarefa.StatusEnum.ToDisplayString;
         mtTarefasDataCriacao.AsString := TClientUtils.DataISOToDisplay(LTarefa.DataCriacao);
         mtTarefas.Post;
       end;

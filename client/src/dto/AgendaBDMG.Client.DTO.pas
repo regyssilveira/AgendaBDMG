@@ -1,9 +1,10 @@
-﻿unit AgendaBDMG.Client.DTO;
+unit AgendaBDMG.Client.DTO;
 
 interface
 
 uses
-  System.Generics.Collections;
+  System.Generics.Collections,
+  AgendaBDMG.Client.Utils;
 
 type
   TTarefaCreateDTO = class
@@ -22,8 +23,11 @@ type
   TTarefaStatusDTO = class
   private
     FStatus: string;
+    function GetStatusEnum: TStatusTarefaClient;
+    procedure SetStatusEnum(const Value: TStatusTarefaClient);
   public
     property Status: string read FStatus write FStatus;
+    property StatusEnum: TStatusTarefaClient read GetStatusEnum write SetStatusEnum;
   end;
 
   TTarefaResponseDTO = class
@@ -35,12 +39,15 @@ type
     FStatus: string;
     FDataCriacao: string;
     FDataConclusao: string;
+    function GetStatusEnum: TStatusTarefaClient;
+    procedure SetStatusEnum(const Value: TStatusTarefaClient);
   public
     property Id: Integer read FId write FId;
     property Titulo: string read FTitulo write FTitulo;
     property Descricao: string read FDescricao write FDescricao;
     property Prioridade: Integer read FPrioridade write FPrioridade;
     property Status: string read FStatus write FStatus;
+    property StatusEnum: TStatusTarefaClient read GetStatusEnum write SetStatusEnum;
     property DataCriacao: string read FDataCriacao write FDataCriacao;
     property DataConclusao: string read FDataConclusao write FDataConclusao;
   end;
@@ -82,6 +89,30 @@ type
   end;
 
 implementation
+
+{ TTarefaStatusDTO }
+
+function TTarefaStatusDTO.GetStatusEnum: TStatusTarefaClient;
+begin
+  Result := TStatusTarefaClient.FromString(FStatus);
+end;
+
+procedure TTarefaStatusDTO.SetStatusEnum(const Value: TStatusTarefaClient);
+begin
+  FStatus := Value.ToString;
+end;
+
+{ TTarefaResponseDTO }
+
+function TTarefaResponseDTO.GetStatusEnum: TStatusTarefaClient;
+begin
+  Result := TStatusTarefaClient.FromString(FStatus);
+end;
+
+procedure TTarefaResponseDTO.SetStatusEnum(const Value: TStatusTarefaClient);
+begin
+  FStatus := Value.ToString;
+end;
 
 { TListaTarefasResponseDTO }
 
