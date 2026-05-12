@@ -13,7 +13,7 @@ type
   private
     FConfig: TClientConfig;
     function PrepararRequisicao(const ASubRota: string): IRequest;
-    function ProcessarResposta<T: class>(AResponse: IResponse; const AMensagemErro: string): T;
+    function ProcessarResposta<T: class, constructor>(AResponse: IResponse; const AMensagemErro: string): T;
   public
     constructor Create;
     
