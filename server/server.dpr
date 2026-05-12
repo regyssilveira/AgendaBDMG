@@ -5,6 +5,7 @@ program server;
 uses
   Horse,
   System.SysUtils,
+  Winapi.Windows,
   AgendaBDMG.Utils.Config in 'src\utils\AgendaBDMG.Utils.Config.pas',
   AgendaBDMG.Utils.Logger in 'src\utils\AgendaBDMG.Utils.Logger.pas',
   AgendaBDMG.Utils.Json in 'src\utils\AgendaBDMG.Utils.Json.pas',
@@ -40,6 +41,7 @@ begin
 
     LPort := TServerConfig.GetInstance.ServerPort;
 
+    IsConsole := False;
     THorse.Listen(LPort, 
       procedure 
       var
@@ -62,9 +64,19 @@ begin
         Writeln(Format(' [ ] Usuario    : %s', [LConfig.DatabaseUsername]));
         Writeln(' [v] FireDAC    : Connection Pooling Ativo (Max 50 Conexoes)');
         Writeln('=============================================================');
-        Writeln(' Pressione ENTER para encerrar o servidor...                 ');
+        Writeln(' Pressione ESC para encerrar o servidor...                   ');
         Writeln('=============================================================');
       end);
+
+    while True do
+    begin
+      if (GetAsyncKeyState(VK_ESCAPE) and $8000) <> 0 then
+      begin
+        THorse.StopListen;
+        Break;
+      end;
+      Sleep(100);
+    end;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
