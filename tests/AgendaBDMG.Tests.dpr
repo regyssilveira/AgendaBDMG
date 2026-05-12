@@ -1,11 +1,23 @@
 program AgendaBDMG.Tests;
 
-{$APPTYPE CONSOLE}
+{$DEFINE GUI}
+{.$DEFINE TESTINSIGHT}
+
+{$IFDEF CI}
+  {$APPTYPE CONSOLE}
+{$ELSE}
+  {$IFNDEF GUI}
+    {$IFNDEF TESTINSIGHT}
+      {$APPTYPE CONSOLE}
+    {$ENDIF}
+  {$ENDIF}
+{$ENDIF}
 
 uses
   System.SysUtils,
   DUnitX.Loggers.Console,
   DUnitX.Loggers.Xml.NUnit,
+  DUnitX.Loggers.GUI.VCL,
   DUnitX.TestFramework,
   AgendaBDMG.Tests.Model.Tarefa in 'src\AgendaBDMG.Tests.Model.Tarefa.pas',
   AgendaBDMG.Tests.Mocks in 'src\AgendaBDMG.Tests.Mocks.pas',
@@ -17,6 +29,21 @@ var
   logger: ITestLogger;
   nunitLogger : ITestLogger;
 begin
+  Assert.IgnoreCaseDefault := False;
+
+{$IFNDEF CI}
+  {$IFDEF GUI}
+    DUnitX.Loggers.GUI.VCL.Run;
+    exit;
+  {$ENDIF}
+
+  {$IFDEF TESTINSIGHT}
+    TestInsight.DUnitX.RunRegisteredTests;
+    exit;
+  {$ENDIF}
+{$ENDIF}
+
+
   try
     // Check command line options, will exit if invalid
     TDUnitX.CheckCommandLine;
