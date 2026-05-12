@@ -17,7 +17,7 @@ object frmTarefa: TfrmTarefa
   object lblTitulo: TLabel
     Left = 16
     Top = 16
-    Width = 33
+    Width = 31
     Height = 15
     Caption = 'T'#237'tulo'
   end
@@ -43,8 +43,8 @@ object frmTarefa: TfrmTarefa
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 269
-    ExplicitWidth = 430
+    ExplicitTop = 253
+    ExplicitWidth = 428
     object btnSalvar: TButton
       Left = 256
       Top = 8

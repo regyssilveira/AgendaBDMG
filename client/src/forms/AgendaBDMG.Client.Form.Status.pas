@@ -29,9 +29,6 @@ type
     procedure LoadData(AId: Integer; const ATitulo, AStatusAtual: string);
   end;
 
-var
-  frmStatus: TfrmStatus;
-
 implementation
 
 uses

@@ -60,9 +60,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmPrincipal: TfrmPrincipal;
-
 implementation
 
 uses
@@ -94,6 +91,7 @@ var
   LDTO: TTarefaCreateDTO;
   LResp: TTarefaResponseDTO;
   LNovoId: Integer;
+  frmTarefa: TfrmTarefa;
 begin
   frmTarefa := TfrmTarefa.Create(Self);
   try
@@ -130,6 +128,7 @@ var
   LDTO: TTarefaStatusDTO;
   LTarefaResponse: TTarefaResponseDTO;
   LId: Integer;
+  frmStatus: TfrmStatus;
 begin
   if mtTarefas.IsEmpty then Exit;
   
@@ -182,6 +181,7 @@ var
   LDTO: TTarefaUpdateDTO;
   LTarefaResponse: TTarefaResponseDTO;
   LId: Integer;
+  frmTarefa: TfrmTarefa;
 begin
   if mtTarefas.IsEmpty then Exit;
   

@@ -31,9 +31,6 @@ type
     procedure LoadData(const ATitulo, ADescricao: string; APrioridade: Integer);
   end;
 
-var
-  frmTarefa: TfrmTarefa;
-
 implementation
 
 {$R *.dfm}

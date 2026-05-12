@@ -51,8 +51,8 @@ object frmStatus: TfrmStatus
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 111
-    ExplicitWidth = 355
+    ExplicitTop = 95
+    ExplicitWidth = 353
     object btnSalvar: TButton
       Left = 184
       Top = 8

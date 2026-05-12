@@ -212,7 +212,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Nova Tarefa'
       TabOrder = 0
       OnClick = btnAdicionarClick
-      ExplicitLeft = 547
+      ExplicitTop = 11
     end
     object btnAnterior: TButton
       AlignWithMargins = True

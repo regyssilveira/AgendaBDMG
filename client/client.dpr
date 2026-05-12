@@ -12,6 +12,9 @@ uses
 
 {$R *.res}
 
+var
+  frmPrincipal: TfrmPrincipal;
+
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
@@ -20,6 +23,11 @@ begin
   AgendaBDMG.Client.Config.TClientConfig.GetInstance;
   
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.Run;
+  try
+    Application.Run;
+  finally
+    frmPrincipal.Free;
+  end;
+
   Application.Terminate;
 end.
