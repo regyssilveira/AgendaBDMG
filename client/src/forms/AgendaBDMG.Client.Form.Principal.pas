@@ -84,6 +84,8 @@ end;
 
 procedure TfrmPrincipal.FormDestroy(Sender: TObject);
 begin
+  if mtTarefas.Active then
+    mtTarefas.Close;
   FTarefaService.Free;
 end;
 

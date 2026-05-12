@@ -22,7 +22,7 @@ object frmPrincipal: TfrmPrincipal
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -3
+    ExplicitWidth = 968
     object lblFiltroStatus: TLabel
       Left = 16
       Top = 8
@@ -95,7 +95,8 @@ object frmPrincipal: TfrmPrincipal
     Color = clWhite
     ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 980
+    ExplicitTop = 408
+    ExplicitWidth = 968
     object lblTotalTarefas: TLabel
       Left = 16
       Top = 13
@@ -144,8 +145,8 @@ object frmPrincipal: TfrmPrincipal
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 526
-    ExplicitWidth = 980
+    ExplicitTop = 503
+    ExplicitWidth = 968
     object lblPaginaInfo: TLabel
       AlignWithMargins = True
       Left = 109
@@ -172,8 +173,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Editar'
       TabOrder = 1
       OnClick = btnEditarClick
-      ExplicitLeft = 666
-      ExplicitTop = 11
+      ExplicitLeft = 653
     end
     object btnExcluir: TButton
       AlignWithMargins = True
@@ -186,8 +186,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Excluir'
       TabOrder = 2
       OnClick = btnExcluirClick
-      ExplicitLeft = 831
-      ExplicitTop = 11
+      ExplicitLeft = 759
     end
     object btnAlterarStatus: TButton
       AlignWithMargins = True
@@ -200,8 +199,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Alterar Status'
       TabOrder = 3
       OnClick = btnAlterarStatusClick
-      ExplicitLeft = 919
-      ExplicitTop = 11
+      ExplicitLeft = 865
     end
     object btnAdicionar: TButton
       AlignWithMargins = True
@@ -214,8 +212,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Nova Tarefa'
       TabOrder = 0
       OnClick = btnAdicionarClick
-      ExplicitLeft = 531
-      ExplicitTop = 11
+      ExplicitLeft = 547
     end
     object btnAnterior: TButton
       AlignWithMargins = True
@@ -228,8 +225,6 @@ object frmPrincipal: TfrmPrincipal
       Caption = '< Anterior'
       TabOrder = 4
       OnClick = btnAnteriorClick
-      ExplicitTop = 3
-      ExplicitHeight = 35
     end
     object btnProximo: TButton
       AlignWithMargins = True
@@ -242,8 +237,6 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Pr'#243'ximo >'
       TabOrder = 5
       OnClick = btnProximoClick
-      ExplicitTop = 3
-      ExplicitHeight = 35
     end
   end
   object DBGridTarefas: TDBGrid

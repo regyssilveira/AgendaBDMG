@@ -1,4 +1,4 @@
-program client;
+﻿program client;
 
 uses
   Vcl.Forms,
@@ -21,4 +21,5 @@ begin
   
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.Run;
+  Application.Terminate;
 end.
