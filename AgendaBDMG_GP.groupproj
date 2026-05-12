@@ -3,6 +3,9 @@
         <ProjectGuid>{F9A8B130-C1AC-490B-BB74-A12AA1A45971}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="tests\AgendaBDMG.Tests.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="server\server.dproj">
             <Dependencies/>
         </Projects>
@@ -17,6 +20,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="AgendaBDMG_Tests">
+        <MSBuild Projects="tests\AgendaBDMG.Tests.dproj"/>
+    </Target>
+    <Target Name="AgendaBDMG_Tests:Clean">
+        <MSBuild Projects="tests\AgendaBDMG.Tests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AgendaBDMG_Tests:Make">
+        <MSBuild Projects="tests\AgendaBDMG.Tests.dproj" Targets="Make"/>
+    </Target>
     <Target Name="server">
         <MSBuild Projects="server\server.dproj"/>
     </Target>
@@ -36,13 +48,13 @@
         <MSBuild Projects="client\client.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="server;client"/>
+        <CallTarget Targets="AgendaBDMG_Tests;server;client"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="server:Clean;client:Clean"/>
+        <CallTarget Targets="AgendaBDMG_Tests:Clean;server:Clean;client:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="server:Make;client:Make"/>
+        <CallTarget Targets="AgendaBDMG_Tests:Make;server:Make;client:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
