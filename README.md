@@ -35,6 +35,7 @@ A API foi construída sob os princípios do Clean Architecture, dividida em cama
 - **Repository:** Centraliza todo o SQL e uso do FireDAC (`TFDQuery`), entregando coleções de Models. O banco conta com **Connection Pooling** ativo para alta performance em concorrência.
 - **Service:** Onde a regra de negócio vive. Valida limites de caracteres, transições de status válidas (ex: uma tarefa `CONCLUIDA` não pode voltar para `PENDENTE`), regras de prioridade e preenchimento automático de datas (como a `DataConclusao`).
 - **Middlewares Globais:**
+  - `CORSMiddleware`: Permite o consumo seguro da API por origens externas (cross-origin).
   - `AuthMiddleware`: Intercepta rotas validando o header `X-API-KEY`.
   - `ErrorHandlerMiddleware`: Captura exceções não tratadas e devolve um JSON formatado com o código HTTP adequado (evitando leak de stack trace).
   - `LoggerMiddleware`: Audita todas as requisições, métricas de tempo (ms) e status HTTP gravando em arquivos físicos de log (`/logs/yyyy-mm-dd.log`).
@@ -110,7 +111,7 @@ Tanto o servidor quanto o cliente utilizam arquivos simples de texto (`.ini`) pa
 
 1. Na pasta raiz do projeto, localize o arquivo chamado `server.ini.example`. Copie e cole este arquivo dentro da pasta `/server/`, renomeando a cópia para **`server.ini`**.
 2. Abra o `server.ini` em um bloco de notas. Verifique se as configurações de banco correspondem ao Docker (usuário `sa` e senha `SuaSenha@123`).
-3. Localize o arquivo `client.ini.example` na raiz do projeto. Copie e cole dentro da pasta `/client/`, renomeando a cópia para **`client.ini`**.
+3. Localize o arquivo `client.ini.example` na raiz do projeto. Copie e cole dentro da pasta `/client/`, renomeando a cópia para **`client.ini`**. Certifique-se de que a porta configurada no cliente corresponda à porta em que a API atende (padrão **9005**).
 4. Ambos os arquivos já vêm configurados com a chave de segurança padrão (`agenda-BDMG-dev-key-2026`). Não é necessário alterá-la para testes locais.
 
 ---

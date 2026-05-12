@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Client.Config;
+unit AgendaBDMG.Client.Config;
 
 interface
 
@@ -46,7 +46,7 @@ begin
   LIniFile := TIniFile.Create(AFileName);
   try
     LIniFile.WriteString('Server', 'Host', 'localhost');
-    LIniFile.WriteInteger('Server', 'Port', 9000);
+    LIniFile.WriteInteger('Server', 'Port', 9005);
     LIniFile.WriteString('Server', 'Protocol', 'http');
     
     LIniFile.WriteString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
@@ -85,7 +85,7 @@ begin
   LIniFile := TIniFile.Create(LFileName);
   try
     FHost := LIniFile.ReadString('Server', 'Host', 'localhost');
-    FPort := LIniFile.ReadInteger('Server', 'Port', 9000);
+    FPort := LIniFile.ReadInteger('Server', 'Port', 9005);
     FProtocol := LIniFile.ReadString('Server', 'Protocol', 'http');
     
     FApiKey := LIniFile.ReadString('Security', 'ApiKey', 'agenda-BDMG-dev-key-2026');
