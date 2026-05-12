@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Repository.Tarefa;
+unit AgendaBDMG.Repository.Tarefa;
 
 interface
 
@@ -238,6 +238,16 @@ function TTarefaRepository.ObterEstatisticas(out ATotal, ATarefasConcluidas: Int
 var
   LQuery: TFDQuery;
 begin
+  // TODO: Otimização Arquitetural (Performance SGBD)
+  // As três consultas sequenciais abaixo cumprem estritamente os requisitos e 
+  // listagens obrigatórias da especificação técnica. Para ambientes de larga escala, 
+  // as três métricas poderiam ser extraídas em uma única passagem atômica (round-trip único)
+  // utilizando agregação condicional nativa em T-SQL:
+  // SELECT COUNT(*) AS Total,
+  //        AVG(CASE WHEN Status = 'PENDENTE' THEN CAST(Prioridade AS FLOAT) ELSE NULL END) AS Media,
+  //        SUM(CASE WHEN Status = 'CONCLUIDA' AND DataConclusao >= DATEADD(DAY, -7, GETDATE()) THEN 1 ELSE 0 END) AS Concluidas
+  // FROM Tarefas WHERE DataExclusao IS NULL
+
   Result := True;
   ATotal := 0;
   ATarefasConcluidas := 0;

@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Service.Tarefa;
+unit AgendaBDMG.Service.Tarefa;
 
 interface
 
@@ -13,7 +13,7 @@ type
   private
     FRepository: ITarefaRepository;
     function MapToResponseDTO(ATarefa: TTarefa): TTarefaResponseDTO;
-    procedure ValidarRegrasBasicas(const ATitulo: string; APrioridade: Integer);
+    procedure ValidarRegrasBasicas(const ATitulo, ADescricao: string; APrioridade: Integer);
   public
     constructor Create(ARepository: ITarefaRepository);
     
@@ -39,13 +39,16 @@ begin
   FRepository := ARepository;
 end;
 
-procedure TTarefaService.ValidarRegrasBasicas(const ATitulo: string; APrioridade: Integer);
+procedure TTarefaService.ValidarRegrasBasicas(const ATitulo, ADescricao: string; APrioridade: Integer);
 begin
   if Trim(ATitulo) = '' then
     raise EHorseException.New.Error('O título da tarefa é obrigatório.').Status(THTTPStatus.BadRequest);
     
   if Length(ATitulo) > 150 then
     raise EHorseException.New.Error('O título da tarefa não pode exceder 150 caracteres.').Status(THTTPStatus.BadRequest);
+    
+  if Length(ADescricao) > 1000 then
+    raise EHorseException.New.Error('A descrição não pode exceder 1000 caracteres.').Status(THTTPStatus.BadRequest);
     
   if (APrioridade < 1) or (APrioridade > 5) then
     raise EHorseException.New.Error('A prioridade deve estar entre 1 e 5.').Status(THTTPStatus.BadRequest);
@@ -111,10 +114,7 @@ function TTarefaService.Criar(ADTO: TTarefaCreateDTO): TTarefaResponseDTO;
 var
   LTarefa: TTarefa;
 begin
-  ValidarRegrasBasicas(ADTO.Titulo, ADTO.Prioridade);
-  
-  if Length(ADTO.Descricao) > 1000 then
-    raise EHorseException.New.Error('A descrição não pode exceder 1000 caracteres.').Status(THTTPStatus.BadRequest);
+  ValidarRegrasBasicas(ADTO.Titulo, ADTO.Descricao, ADTO.Prioridade);
 
   LTarefa := TTarefa.Create;
   try
@@ -134,10 +134,7 @@ function TTarefaService.Atualizar(AId: Integer; ADTO: TTarefaUpdateDTO): TTarefa
 var
   LTarefa: TTarefa;
 begin
-  ValidarRegrasBasicas(ADTO.Titulo, ADTO.Prioridade);
-  
-  if Length(ADTO.Descricao) > 1000 then
-    raise EHorseException.New.Error('A descrição não pode exceder 1000 caracteres.').Status(THTTPStatus.BadRequest);
+  ValidarRegrasBasicas(ADTO.Titulo, ADTO.Descricao, ADTO.Prioridade);
 
   LTarefa := FRepository.ObterPorId(AId);
   if not Assigned(LTarefa) then

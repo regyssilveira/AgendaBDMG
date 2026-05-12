@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Client.Service.Tarefa;
+unit AgendaBDMG.Client.Service.Tarefa;
 
 interface
 
@@ -12,6 +12,8 @@ type
   TTarefaApiService = class
   private
     FConfig: TClientConfig;
+    function PrepararRequisicao(const ASubRota: string): IRequest;
+    function ProcessarResposta<T: class>(AResponse: IResponse; const AMensagemErro: string): T;
   public
     constructor Create;
     
@@ -33,15 +35,27 @@ begin
   FConfig := TClientConfig.GetInstance;
 end;
 
+function TTarefaApiService.PrepararRequisicao(const ASubRota: string): IRequest;
+begin
+  Result := TRequest.New
+    .BaseURL(FConfig.GetBaseUrl)
+    .Resource(ASubRota)
+    .AddHeader('X-API-KEY', FConfig.ApiKey);
+end;
+
+function TTarefaApiService.ProcessarResposta<T>(AResponse: IResponse; const AMensagemErro: string): T;
+begin
+  if (AResponse.StatusCode >= 200) and (AResponse.StatusCode <= 299) then
+    Result := TJson.JsonToObject<T>(AResponse.Content)
+  else
+    raise Exception.CreateFmt('%s Status: %d - %s', [AMensagemErro, AResponse.StatusCode, AResponse.Content]);
+end;
+
 function TTarefaApiService.Listar(APagina: Integer = 1; ALimite: Integer = 20; const AStatus: string = ''; APrioridade: Integer = 0; const AOrdem: string = ''): TListaTarefasResponseDTO;
 var
   LRequest: IRequest;
-  LResponse: IResponse;
 begin
-  LRequest := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/tarefas')
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
+  LRequest := PrepararRequisicao('/api/tarefas')
     .AddParam('page', APagina.ToString)
     .AddParam('limit', ALimite.ToString);
     
@@ -54,115 +68,56 @@ begin
   if AOrdem <> '' then
     LRequest.AddParam('ordem', AOrdem);
 
-  LResponse := LRequest.Get;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TListaTarefasResponseDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao listar tarefas. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+  Result := ProcessarResposta<TListaTarefasResponseDTO>(LRequest.Get, 'Erro ao listar tarefas.');
 end;
 
 function TTarefaApiService.ObterPorId(AId: Integer): TTarefaResponseDTO;
-var
-  LResponse: IResponse;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/tarefas')
-    .ResourceSuffix(AId.ToString)
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
-    .Get;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TTarefaResponseDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao obter tarefa. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+  Result := ProcessarResposta<TTarefaResponseDTO>(PrepararRequisicao('/api/tarefas/' + AId.ToString).Get, 'Erro ao obter tarefa.');
 end;
 
 function TTarefaApiService.Criar(ADTO: TTarefaCreateDTO): TTarefaResponseDTO;
 var
-  LResponse: IResponse;
+  LRequest: IRequest;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/tarefas')
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
+  LRequest := PrepararRequisicao('/api/tarefas')
     .ContentType('application/json')
-    .AddBody(TJson.ObjectToJsonString(ADTO))
-    .Post;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TTarefaResponseDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao criar tarefa. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+    .AddBody(TJson.ObjectToJsonString(ADTO));
+  Result := ProcessarResposta<TTarefaResponseDTO>(LRequest.Post, 'Erro ao criar tarefa.');
 end;
 
 function TTarefaApiService.Atualizar(AId: Integer; ADTO: TTarefaUpdateDTO): TTarefaResponseDTO;
 var
-  LResponse: IResponse;
+  LRequest: IRequest;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/tarefas')
-    .ResourceSuffix(AId.ToString)
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
+  LRequest := PrepararRequisicao('/api/tarefas/' + AId.ToString)
     .ContentType('application/json')
-    .AddBody(TJson.ObjectToJsonString(ADTO))
-    .Put;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TTarefaResponseDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao atualizar tarefa. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+    .AddBody(TJson.ObjectToJsonString(ADTO));
+  Result := ProcessarResposta<TTarefaResponseDTO>(LRequest.Put, 'Erro ao atualizar tarefa.');
 end;
 
 function TTarefaApiService.AtualizarStatus(AId: Integer; ADTO: TTarefaStatusDTO): TTarefaResponseDTO;
 var
-  LResponse: IResponse;
+  LRequest: IRequest;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource(Format('/api/tarefas/%d/status', [AId]))
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
+  LRequest := PrepararRequisicao(Format('/api/tarefas/%d/status', [AId]))
     .ContentType('application/json')
-    .AddBody(TJson.ObjectToJsonString(ADTO))
-    .Put;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TTarefaResponseDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao atualizar status. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+    .AddBody(TJson.ObjectToJsonString(ADTO));
+  Result := ProcessarResposta<TTarefaResponseDTO>(LRequest.Put, 'Erro ao atualizar status.');
 end;
 
 procedure TTarefaApiService.Remover(AId: Integer);
 var
   LResponse: IResponse;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/tarefas')
-    .ResourceSuffix(AId.ToString)
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
-    .Delete;
-
+  LResponse := PrepararRequisicao('/api/tarefas/' + AId.ToString).Delete;
   if not ((LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299)) then
     raise Exception.CreateFmt('Erro ao remover tarefa. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
 end;
 
 function TTarefaApiService.ObterEstatisticas: TEstatisticasDTO;
-var
-  LResponse: IResponse;
 begin
-  LResponse := TRequest.New
-    .BaseURL(FConfig.GetBaseUrl)
-    .Resource('/api/estatisticas')
-    .AddHeader('X-API-KEY', FConfig.ApiKey)
-    .Get;
-
-  if (LResponse.StatusCode >= 200) and (LResponse.StatusCode <= 299) then
-    Result := TJson.JsonToObject<TEstatisticasDTO>(LResponse.Content)
-  else
-    raise Exception.CreateFmt('Erro ao obter estatísticas. Status: %d - %s', [LResponse.StatusCode, LResponse.Content]);
+  Result := ProcessarResposta<TEstatisticasDTO>(PrepararRequisicao('/api/estatisticas').Get, 'Erro ao obter estatísticas.');
 end;
 
 end.
