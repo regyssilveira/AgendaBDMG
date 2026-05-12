@@ -74,6 +74,11 @@ type
 
 { TTarefaController }
 
+constructor TTarefaController.Create(Req: THorseRequest; Res: THorseResponse);
+begin
+  inherited Create(Req, Res);
+end;
+
 procedure TTarefaController.GetTarefas;
 var
   LService: ITarefaService;
