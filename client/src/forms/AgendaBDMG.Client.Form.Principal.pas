@@ -1,4 +1,4 @@
-unit AgendaBDMG.Client.Form.Principal;
+﻿unit AgendaBDMG.Client.Form.Principal;
 
 interface
 
@@ -14,10 +14,7 @@ type
   TfrmPrincipal = class(TForm)
     pnlTop: TPanel;
     pnlBottom: TPanel;
-    pnlClient: TPanel;
     pnlEstatisticas: TPanel;
-    DBGridTarefas: TDBGrid;
-    btnAdicionar: TButton;
     btnEditar: TButton;
     btnExcluir: TButton;
     btnAlterarStatus: TButton;
@@ -37,10 +34,11 @@ type
     mtTarefasPrioridade: TStringField;
     mtTarefasStatus: TStringField;
     mtTarefasDataCriacao: TStringField;
-    pnlPaginacao: TPanel;
+    btnAdicionar: TButton;
     btnAnterior: TButton;
-    btnProximo: TButton;
     lblPaginaInfo: TLabel;
+    btnProximo: TButton;
+    DBGridTarefas: TDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure btnAtualizarClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);

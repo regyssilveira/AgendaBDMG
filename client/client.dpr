@@ -1,4 +1,4 @@
-﻿program client;
+program client;
 
 uses
   Vcl.Forms,
@@ -10,7 +10,7 @@ uses
   AgendaBDMG.Client.DTO in 'src\dto\AgendaBDMG.Client.DTO.pas',
   AgendaBDMG.Client.Service.Tarefa in 'src\services\AgendaBDMG.Client.Service.Tarefa.pas';
 
-// {$R *.res}
+{$R *.res}
 
 begin
   Application.Initialize;
