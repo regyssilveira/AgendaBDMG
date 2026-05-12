@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Client.Form.Principal;
+unit AgendaBDMG.Client.Form.Principal;
 
 interface
 
@@ -92,6 +92,8 @@ end;
 procedure TfrmPrincipal.btnAdicionarClick(Sender: TObject);
 var
   LDTO: TTarefaCreateDTO;
+  LResp: TTarefaResponseDTO;
+  LNovoId: Integer;
 begin
   frmTarefa := TfrmTarefa.Create(Self);
   try
@@ -104,9 +106,16 @@ begin
         LDTO.Descricao := frmTarefa.FDescricao;
         LDTO.Prioridade := frmTarefa.FPrioridade;
         
-        FTarefaService.Criar(LDTO);
+        LResp := FTarefaService.Criar(LDTO);
+        try
+          LNovoId := LResp.Id;
+        finally
+          LResp.Free;
+        end;
+        
         CarregarTarefas;
         CarregarEstatisticas;
+        mtTarefas.Locate('Id', LNovoId, []);
       finally
         LDTO.Free;
       end;
@@ -137,9 +146,10 @@ begin
         LDTO := TTarefaStatusDTO.Create;
         try
           LDTO.Status := frmStatus.FNovoStatus;
-          FTarefaService.AtualizarStatus(LId, LDTO);
+          FTarefaService.AtualizarStatus(LId, LDTO).Free;
           CarregarTarefas;
           CarregarEstatisticas;
+          mtTarefas.Locate('Id', LId, []);
         finally
           LDTO.Free;
         end;
@@ -189,8 +199,10 @@ begin
           LDTO.Descricao := frmTarefa.FDescricao;
           LDTO.Prioridade := frmTarefa.FPrioridade;
           
-          FTarefaService.Atualizar(LId, LDTO);
+          FTarefaService.Atualizar(LId, LDTO).Free;
           CarregarTarefas;
+          CarregarEstatisticas;
+          mtTarefas.Locate('Id', LId, []);
         finally
           LDTO.Free;
         end;
