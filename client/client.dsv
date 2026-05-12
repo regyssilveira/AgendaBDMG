@@ -67,7 +67,6 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\AgendaMontreal\client\src\forms\AgendaBDMG.Client.Form.Principal.pas
-
 [ClosedView_RDpcUHJvamV0b3NcQWdlbmRhTW9udHJlYWxcY2xpZW50XHNyY1xmb3Jtc1xBZ2VuZGFCRE1HLkNs
 aWVudC5Gb3JtLlByaW5jaXBhbC5wYXM=]
 Module=D:\Projetos\AgendaMontreal\client\src\forms\AgendaBDMG.Client.Form.Principal.pas
@@ -78,4 +77,25 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Projetos\AgendaMontreal\client\src\forms\AgendaBDMG.Client.Form.Principal.pas
+[ClosedView_RDpcUHJvamV0b3NcQWdlbmRhTW9udHJlYWxcc2VydmVyXHNyY1x1dGlsc1xBZ2VuZGFCRE1HLlV0
+aWxzLkNvbmZpZy5wYXM=]
+Module=D:\Projetos\AgendaMontreal\server\src\utils\AgendaBDMG.Utils.Config.pas
+CursorX=1
+CursorY=1
+TopLine=67
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Projetos\AgendaMontreal\server\src\utils\AgendaBDMG.Utils.Config.pas
+
+[ClosedView_RDpcUHJvamV0b3NcQWdlbmRhTW9udHJlYWxcc2VydmVyXHNyY1x1dGlsc1xBZ2VuZGFCRE1HLlV0
+aWxzLkpzb24ucGFz]
+Module=D:\Projetos\AgendaMontreal\server\src\utils\AgendaBDMG.Utils.Json.pas
+CursorX=6
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Projetos\AgendaMontreal\server\src\utils\AgendaBDMG.Utils.Json.pas
 

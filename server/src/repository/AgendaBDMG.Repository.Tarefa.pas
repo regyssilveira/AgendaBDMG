@@ -1,10 +1,10 @@
-unit AgendaBDMG.Repository.Tarefa;
+﻿unit AgendaBDMG.Repository.Tarefa;
 
 interface
 
 uses
   System.SysUtils, System.Classes, System.Generics.Collections,
-  Data.DB, FireDAC.Comp.Client,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
   AgendaBDMG.Model.Tarefa,
   AgendaBDMG.Interfaces;
 
