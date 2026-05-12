@@ -21,6 +21,9 @@ type
     procedure TestStatusFromStringInvalido;
 
     [Test]
+    procedure TestStatusToString;
+
+    [Test]
     procedure TestTransicoesValidas;
 
     [Test]
@@ -67,6 +70,14 @@ begin
   );
 end;
 
+procedure TModelTarefaTests.TestStatusToString;
+begin
+  Assert.AreEqual('PENDENTE', stPendente.ToString);
+  Assert.AreEqual('EM_ANDAMENTO', stEmAndamento.ToString);
+  Assert.AreEqual('CONCLUIDA', stConcluida.ToString);
+  Assert.AreEqual('CANCELADA', stCancelada.ToString);
+end;
+
 procedure TModelTarefaTests.TestTransicoesValidas;
 var
   LStatus: TStatusTarefa;
@@ -80,6 +91,11 @@ begin
   Assert.IsTrue(LStatus.PodeMudarPara(stConcluida));
   Assert.IsTrue(LStatus.PodeMudarPara(stCancelada));
   Assert.IsTrue(LStatus.PodeMudarPara(stPendente));
+
+  LStatus := stCancelada;
+  Assert.IsTrue(LStatus.PodeMudarPara(stPendente));
+  Assert.IsFalse(LStatus.PodeMudarPara(stEmAndamento));
+  Assert.IsFalse(LStatus.PodeMudarPara(stConcluida));
 end;
 
 procedure TModelTarefaTests.TestBloqueioEstadoFinal;

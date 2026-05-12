@@ -161,7 +161,7 @@ Com o servidor rodando, você pode testar a API diretamente pelo navegador sem p
 ---
 
 ### Etapa 6: Rodando os Testes Unitários Automatizados
-O backend possui uma suíte robusta de testes automatizados unitários construída com **DUnitX**, que valida o domínio e a inteligência dos serviços isoladamente (com *Mocks* em memória), sem exigir SGBD ativo.
+O projeto conta com uma suíte robusta e abrangente de testes automatizados unitários construída com **DUnitX**, que valida isoladamente tanto o domínio e a inteligência dos serviços do **Backend** (com *Mocks* em memória de repositório, validações de texto, limites e regras da máquina de estados), quanto as lógicas e utilitários estáticos do **Frontend / Client**, tudo sem exigir SGBD ativo ou conexão HTTP.
 
 Como os utilitários da API compartilham conversores com o **GBSwagger**, a pasta de testes conta com seu próprio gerenciador de pacotes para manter a compilação fluida:
 
