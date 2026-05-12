@@ -1,4 +1,4 @@
-﻿# Agenda BDMG - Sistema de Gerenciamento de Tarefas
+# Agenda BDMG - Sistema de Gerenciamento de Tarefas
 
 O **Agenda BDMG** é um sistema completo e moderno de gerenciamento de tarefas desenvolvido em Delphi, arquitetado para demonstrar proficiência em padrões de projeto, arquitetura de software (Clean Code, SOLID) e separação de responsabilidades.
 
@@ -56,10 +56,20 @@ O Client Desktop interage exclusivamente com a API:
 Siga as etapas abaixo para ter o ambiente rodando localmente de forma rápida:
 
 ### 1. Preparação do Banco de Dados
-Certifique-se de possuir acesso a uma instância do MS SQL Server.
+Certifique-se de possuir acesso a uma instância do MS SQL Server. Para facilitar, o projeto inclui um arquivo `docker-compose.yml` pré-configurado.
+
+**Opção A: Usando Docker (Recomendado)**
+1. Abra o prompt na raiz do projeto e execute: `docker-compose up -d`
+2. O SQL Server 2022 estará rodando na porta `1433` com o usuário `sa` e senha `SuaSenha@123`.
+3. Conecte-se ao banco via DBeaver ou SQL Server Management Studio (SSMS).
+4. Execute os scripts da pasta `/sql/`:
+   - `001_create_database.sql` para criar o schema `AgendaBDMG`.
+   - `002_create_table_tarefas.sql` para criar a tabela, constraints, índices e inserir os dados (Seed).
+
+**Opção B: Usando SQL Server Local**
 1. Acesse a pasta `/sql/`.
-2. Execute o script `001_create_database.sql` para criar o schema `AgendaBDMG`.
-3. Execute o script `002_create_table_tarefas.sql`. Ele irá criar a tabela, as constraints, os índices e **inserir 5 tarefas de exemplo (Seed)**.
+2. Execute o script `001_create_database.sql` na sua instância.
+3. Execute o script `002_create_table_tarefas.sql`.
 
 ### 2. Configurando o Ambiente
 As aplicações leem arquivos `.ini` físicos para suas configurações (banco, portas, API keys).

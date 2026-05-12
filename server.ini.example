@@ -1,9 +1,9 @@
-﻿[Database]
+[Database]
 Server=localhost
 Port=1433
 Database=AgendaBDMG
 Username=sa
-Password=SuaSenha123
+Password=SuaSenha@123
 Driver=MSSQL
 
 [Server]
