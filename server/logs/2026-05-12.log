@@ -1,8 +1,0 @@
-[2026-05-12 16:15:32.432] [INFO] GET /swagger/doc/json - Status: 200 - 0 ms
-[2026-05-12 16:17:14.815] [INFO] GET /swagger/doc/json - Status: 200 - 0 ms
-[2026-05-12 16:17:22.056] [INFO] GET /swagger/doc/json - Status: 200 - 0 ms
-[2026-05-12 16:18:34.221] [INFO] GET /api - Status: 200 - 0 ms
-[2026-05-12 16:18:36.049] [INFO] GET /swagger/doc/html - Status: 200 - 0 ms
-[2026-05-12 16:18:36.240] [INFO] GET /swagger/doc/json - Status: 200 - 0 ms
-[2026-05-12 16:20:00.063] [INFO] GET /swagger/doc/html - Status: 200 - 0 ms
-[2026-05-12 16:20:00.260] [INFO] GET /swagger/doc/json - Status: 200 - 0 ms

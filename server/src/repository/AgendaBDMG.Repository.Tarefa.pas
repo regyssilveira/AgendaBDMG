@@ -1,4 +1,4 @@
-﻿unit AgendaBDMG.Repository.Tarefa;
+unit AgendaBDMG.Repository.Tarefa;
 
 interface
 
@@ -205,7 +205,10 @@ begin
     if ATarefa.DataConclusao > 0 then
       LQuery.ParamByName('DataConclusao').AsDateTime := ATarefa.DataConclusao
     else
+    begin
+      LQuery.ParamByName('DataConclusao').DataType := ftDateTime;
       LQuery.ParamByName('DataConclusao').Clear;
+    end;
     
     TLogger.SQL(LQuery.SQL.Text);
     LQuery.ExecSQL;

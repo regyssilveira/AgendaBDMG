@@ -148,6 +148,7 @@ implementation
 constructor TListaTarefasResponseDTO.Create;
 begin
   FDados := TObjectList<TTarefaResponseDTO>.Create(True);
+  FPaginacao := TPaginacaoDTO.Create;
 end;
 
 destructor TListaTarefasResponseDTO.Destroy;
