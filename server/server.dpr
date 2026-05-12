@@ -1,4 +1,4 @@
-﻿program server;
+program server;
 
 {$APPTYPE CONSOLE}
 
@@ -42,9 +42,28 @@ begin
 
     THorse.Listen(LPort, 
       procedure 
+      var
+        LConfig: TServerConfig;
       begin 
-        Writeln(Format('Server running on port %d', [LPort])); 
-        Writeln('Press ENTER to exit...');
+        LConfig := TServerConfig.GetInstance;
+        Writeln('');
+        Writeln('=============================================================');
+        Writeln('            AGENDA BDMG - SERVIDOR BACKEND (API)             ');
+        Writeln('=============================================================');
+        Writeln(Format(' [v] Status     : ONLINE na porta %d', [LPort])); 
+        Writeln(Format(' [v] Base URL   : http://localhost:%d/api', [LPort]));
+        Writeln(Format(' [v] Swagger UI : http://localhost:%d/swagger (Em breve)', [LPort]));
+        Writeln('-------------------------------------------------------------');
+        Writeln('                CONEXAO COM BANCO DE DADOS                   ');
+        Writeln('-------------------------------------------------------------');
+        Writeln(Format(' [ ] Driver     : %s', [LConfig.DatabaseDriver]));
+        Writeln(Format(' [ ] Servidor   : %s:%d', [LConfig.DatabaseServer, LConfig.DatabasePort]));
+        Writeln(Format(' [ ] Database   : %s', [LConfig.DatabaseName]));
+        Writeln(Format(' [ ] Usuario    : %s', [LConfig.DatabaseUsername]));
+        Writeln(' [v] FireDAC    : Connection Pooling Ativo (Max 50 Conexoes)');
+        Writeln('=============================================================');
+        Writeln(' Pressione ENTER para encerrar o servidor...                 ');
+        Writeln('=============================================================');
       end);
   except
     on E: Exception do
