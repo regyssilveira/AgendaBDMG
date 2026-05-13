@@ -1,6 +1,8 @@
 *.exe
 *.dcu
 *.dsv
+*.dsk
+*.~*
 __history/
 *.ini
 *.local
